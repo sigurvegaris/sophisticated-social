@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 export default function Home() {
   const statsRef = useRef(null)
   const [statsVisible, setStatsVisible] = useState(false)
-  const sectionsRef = useRef([])
-  const [sectionsVisible, setSectionsVisible] = useState([])
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([])
+  const [sectionsVisible, setSectionsVisible] = useState<number[]>([])
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Home() {
     return () => observers.forEach(obs => obs?.disconnect())
   }, [])
 
-  const fadeStyle = (i) => ({
+  const fadeStyle = (i: number) => ({
     opacity: sectionsVisible.includes(i) ? 1 : 0,
     transform: sectionsVisible.includes(i) ? 'translateY(0)' : 'translateY(28px)',
     transition: 'opacity 0.8s ease, transform 0.8s ease'
@@ -123,7 +123,7 @@ export default function Home() {
 
       {/* ── INTRO ── */}
       <div
-        ref={el => sectionsRef.current[0] = el}
+        ref={el => { sectionsRef.current[0] = el }}
         style={{
           padding: isMobile ? '72px 28px' : '130px 80px',
           background: '#FFFFFF',
@@ -135,7 +135,7 @@ export default function Home() {
           fontFamily: 'Playfair Display, serif',
           fontSize: isMobile ? '2.4rem' : 'clamp(2.8rem, 4vw, 4.5rem)',
           fontWeight: 400, lineHeight: 1.15, color: '#1C1C1C',
-          marginBottom: '.5px', maxWidth: '700px'
+          marginBottom: '48px', maxWidth: '700px'
         }}>
           I didn't follow trends.<br />
           <em style={{ fontStyle: 'italic', color: '#06402B' }}>I set them.</em>
@@ -145,7 +145,7 @@ export default function Home() {
           display: 'grid',
           gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
           gap: isMobile ? '32px' : '80px',
-          alignItems: 'start'
+          alignItems: 'flex-start'
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
             <p style={{ fontSize: '1.1rem', lineHeight: 2, color: '#7A7A72', fontWeight: 300 }}>
@@ -167,22 +167,23 @@ export default function Home() {
             >Read My Full Story →</a>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '-60px' }}>            {[
-{ num: '200K', label: 'Instagram Followers' },
-{ num: '342K', label: 'TikTok Followers' },
-{ num: '500K+', label: 'Combined Following' },
-{ num: '5+', label: 'Years of Experience' },
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '-60px' }}>
+            {[
+              { num: '200K', label: 'Instagram Followers' },
+              { num: '342K', label: 'TikTok Followers' },
+              { num: '500K+', label: 'Combined Following' },
+              { num: '5+', label: 'Years of Experience' },
             ].map((s, i) => (
               <div key={i} style={{
                 padding: '28px 36px',
                 background: i % 2 === 0 ? '#F7F3EE' : '#FFFFFF',
                 borderLeft: '2px solid rgba(6,64,43,0.08)',
-                display: 'flex', alignItems: 'flex-start',
+                display: 'flex', alignItems: 'center',
                 justifyContent: 'space-between', gap: '24px',
                 transition: 'border-color 0.3s'
               }}
-                onMouseEnter={e => e.currentTarget.style.borderLeftColor = '#06402B'}
-                onMouseLeave={e => e.currentTarget.style.borderLeftColor = 'rgba(6,64,43,0.08)'}
+                onMouseEnter={e => (e.currentTarget.style.borderLeftColor = '#06402B')}
+                onMouseLeave={e => (e.currentTarget.style.borderLeftColor = 'rgba(6,64,43,0.08)')}
               >
                 <span style={{
                   fontFamily: 'Playfair Display, serif',
@@ -200,42 +201,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── STATS ──
-      <div ref={statsRef} style={{ background: '#06402B', padding: isMobile ? '64px 28px' : '90px 80px' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
-          gap: '2px', maxWidth: '1200px', margin: '0 auto'
-        }}>
-          {[
- { num: '200K', label: 'Instagram Followers' },
- { num: '342K', label: 'TikTok Followers' },
- { num: '500K+', label: 'Combined Following' },
- { num: '5+', label: 'Years of Experience' },
-          ].map((s, i) => (
-            <div key={i} style={{
-              padding: isMobile ? '36px 20px' : '52px 40px',
-              background: i % 2 === 0 ? 'rgba(255,255,255,0.04)' : 'transparent',
-              textAlign: 'center',
-              opacity: statsVisible ? 1 : 0,
-              transform: statsVisible ? 'translateY(0)' : 'translateY(24px)',
-              transition: `opacity 0.7s ease ${i * 0.12}s, transform 0.7s ease ${i * 0.12}s`
-            }}>
-              <div style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: isMobile ? '2.2rem' : 'clamp(2.5rem, 3.5vw, 3.8rem)',
-                fontWeight: 400, color: '#F7F3EE', lineHeight: 1, marginBottom: '14px'
-              }}>{s.num}</div>
-              <div style={{ fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.55)', fontWeight: 400, marginBottom: '6px' }}>{s.label}</div>
-              <div style={{ fontSize: '0.7rem', color: 'rgba(247,243,238,0.3)', fontWeight: 300, fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>{s.sub}</div>
-            </div>
-          ))}
-        </div>
-      </div> */}
-
       {/* ── METHODOLOGY ── */}
       <div
-        ref={el => sectionsRef.current[1] = el}
+        ref={el => { sectionsRef.current[1] = el }}
         style={{
           padding: isMobile ? '72px 28px' : '130px 80px',
           background: '#F7F3EE',
@@ -265,8 +233,8 @@ export default function Home() {
           ].map((p, i) => (
             <div key={i}
               style={{ background: '#FFFFFF', padding: isMobile ? '40px 32px' : '60px 52px', position: 'relative', overflow: 'hidden', transition: 'transform 0.3s ease' }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+              onMouseEnter={e => (e.currentTarget.style.transform = 'translateY(-4px)')}
+              onMouseLeave={e => (e.currentTarget.style.transform = 'translateY(0)')}
             >
               <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '3.5rem', fontWeight: 400, color: '#06402B', opacity: 0.06, position: 'absolute', top: '24px', right: '32px', lineHeight: 1 }}>{p.num}</span>
               <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '0.7rem', color: '#06402B', opacity: 0.5, display: 'block', marginBottom: '28px', letterSpacing: '0.15em' }}>{p.num}</span>
@@ -279,7 +247,7 @@ export default function Home() {
 
       {/* ── TESTIMONIAL ── */}
       <div
-        ref={el => sectionsRef.current[2] = el}
+        ref={el => { sectionsRef.current[2] = el }}
         style={{
           padding: isMobile ? '72px 28px' : '130px 80px',
           background: '#FFFFFF',
@@ -306,7 +274,7 @@ export default function Home() {
 
       {/* ── CTA ── */}
       <div
-        ref={el => sectionsRef.current[3] = el}
+        ref={el => { sectionsRef.current[3] = el }}
         style={{
           background: '#1C1C1C',
           padding: isMobile ? '72px 28px' : '130px 80px',
@@ -334,22 +302,22 @@ export default function Home() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'flex-start' }}>
           <a href="/connect" style={{
             display: 'inline-block', padding: '18px 52px',
-            background: '#F7F3EE', color: '#06402B',
+            background: '#F7F3EE', color: '#1C1C1C',
             textDecoration: 'none', fontSize: '0.75rem',
             letterSpacing: '0.15em', textTransform: 'uppercase',
             fontWeight: 400, border: '1px solid #F7F3EE',
             borderRadius: '10px', transition: 'all 0.3s'
           }}
             onMouseEnter={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#F7F3EE' }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#F7F3EE'; e.currentTarget.style.color = '#06402B' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#F7F3EE'; e.currentTarget.style.color = '#1C1C1C' }}
           >Get In Touch</a>
           <a href="/services" style={{
             fontSize: '0.75rem', letterSpacing: '0.15em',
             textTransform: 'uppercase', color: 'rgba(247,243,238,0.5)',
             textDecoration: 'none', fontWeight: 300, transition: 'color 0.3s'
           }}
-            onMouseEnter={e => e.currentTarget.style.color = '#F7F3EE'}
-            onMouseLeave={e => e.currentTarget.style.color = 'rgba(247,243,238,0.5)'}
+            onMouseEnter={e => (e.currentTarget.style.color = '#F7F3EE')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(247,243,238,0.5)')}
           >View Services →</a>
         </div>
       </div>
