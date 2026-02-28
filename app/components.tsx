@@ -1,8 +1,16 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   return (
     <>
@@ -22,51 +30,44 @@ export function Nav() {
         </a>
 
         {/* Desktop Nav */}
-        <ul style={{
-          display: 'flex', gap: '40px', listStyle: 'none',
-          '@media (max-width: 768px)': { display: 'none' }
-        } as any}>
-          {[
-            { label: 'Home', href: '/' },
-            { label: 'Our Services', href: '/services' },
-            { label: 'Our Founder', href: '/founder' },
-            { label: "Let's Connect", href: '/connect' },
-          ].map((link) => (
-            <li key={link.label}>
-              <a href={link.href} style={{
-                fontSize: '0.72rem', letterSpacing: '0.1em',
-                textTransform: 'uppercase', color: '#1C1C1C',
-                textDecoration: 'none', fontWeight: 400, opacity: 0.55,
-                transition: 'opacity 0.2s, color 0.2s'
-              }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.opacity = '1'
-                  e.currentTarget.style.color = '#06402B'
+        {!isMobile && (
+          <ul style={{ display: 'flex', gap: '40px', listStyle: 'none', margin: 0, padding: 0 }}>
+            {[
+              { label: 'Home', href: '/' },
+              { label: 'Our Services', href: '/services' },
+              { label: 'Our Founder', href: '/founder' },
+              { label: "Let's Connect", href: '/connect' },
+            ].map((link) => (
+              <li key={link.label}>
+                <a href={link.href} style={{
+                  fontSize: '0.72rem', letterSpacing: '0.1em',
+                  textTransform: 'uppercase', color: '#1C1C1C',
+                  textDecoration: 'none', fontWeight: 400, opacity: 0.55,
+                  transition: 'opacity 0.2s, color 0.2s'
                 }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.opacity = '0.55'
-                  e.currentTarget.style.color = '#1C1C1C'
-                }}
-              >{link.label}</a>
-            </li>
-          ))}
-        </ul>
+                  onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.color = '#06402B' }}
+                  onMouseLeave={e => { e.currentTarget.style.opacity = '0.55'; e.currentTarget.style.color = '#1C1C1C' }}
+                >{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            display: 'none',
-            background: 'none', border: 'none',
-            cursor: 'pointer', padding: '4px',
-            flexDirection: 'column', gap: '5px'
-          }}
-          className="hamburger"
-        >
-          <span style={{ display: 'block', width: '22px', height: '1.5px', background: '#06402B', transition: 'all 0.3s', transform: menuOpen ? 'rotate(45deg) translateY(6px)' : 'none' }}></span>
-          <span style={{ display: 'block', width: '22px', height: '1.5px', background: '#06402B', transition: 'all 0.3s', opacity: menuOpen ? 0 : 1 }}></span>
-          <span style={{ display: 'block', width: '22px', height: '1.5px', background: '#06402B', transition: 'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none' }}></span>
-        </button>
+        {isMobile && (
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: 'none', border: 'none',
+              cursor: 'pointer', padding: '4px',
+              display: 'flex', flexDirection: 'column', gap: '5px'
+            }}
+          >
+            <span style={{ display: 'block', width: '22px', height: '1.5px', background: '#06402B', transition: 'all 0.3s', transform: menuOpen ? 'rotate(45deg) translateY(6px)' : 'none' }}></span>
+            <span style={{ display: 'block', width: '22px', height: '1.5px', background: '#06402B', transition: 'all 0.3s', opacity: menuOpen ? 0 : 1 }}></span>
+            <span style={{ display: 'block', width: '22px', height: '1.5px', background: '#06402B', transition: 'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none' }}></span>
+          </button>
+        )}
       </nav>
 
       {/* Mobile Menu */}
@@ -97,11 +98,11 @@ export function Nav() {
               onMouseLeave={e => e.currentTarget.style.color = '#1C1C1C'}
             >{link.label}</a>
           ))}
-          <a href="mailto:emmy@sophisticatedspreads.net" style={{
+          <a href="mailto:emmy@sophisticatedsocial.net" style={{
             fontSize: '0.75rem', letterSpacing: '0.15em',
             textTransform: 'uppercase', color: '#06402B',
             textDecoration: 'none', marginTop: '8px'
-          }}>emmy@sophisticatedspreads.net</a>
+          }}>emmy@sophisticatedsocial.net</a>
         </div>
       </div>
     </>
@@ -109,16 +110,25 @@ export function Nav() {
 }
 
 export function Footer() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
     <footer style={{ background: '#06402B' }}>
       <div style={{
-        padding: '80px 80px 60px',
+        padding: isMobile ? '60px 28px 40px' : '80px 80px 60px',
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '60px',
+        gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: isMobile ? '40px' : '60px',
         borderBottom: '1px solid rgba(247,243,238,0.08)'
       }}>
-        <div>
+        <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
           <div style={{ lineHeight: 1, marginBottom: '24px' }}>
             <div style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontWeight: 400, fontSize: '1.4rem', color: 'rgba(247,243,238,0.9)' }}>sophisticated</div>
             <div style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: '1.4rem', color: 'rgba(247,243,238,0.9)', marginTop: '-2px' }}>social</div>
@@ -168,9 +178,10 @@ export function Footer() {
           <p style={{ fontSize: '0.65rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.35)', marginBottom: '24px' }}>Get In Touch</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {[
-              { label: 'emmy@sophisticatedspreads.net', href: 'mailto:emmy@sophisticatedspreads.net' },
+              { label: 'emmy@sophisticatedsocial.net', href: 'mailto:emmy@sophisticatedsocial.net' },
               { label: 'Instagram — @emmyrener', href: 'https://www.instagram.com/emmyrener' },
               { label: 'TikTok — @emmyrener', href: 'https://www.tiktok.com/@emmyrener' },
+              { label: 'Sophisticated Spreads ↗', href: 'https://www.sophisticatedspreads.com' },
             ].map((link) => (
               <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
                 fontSize: '0.88rem', color: 'rgba(247,243,238,0.55)',
@@ -185,7 +196,7 @@ export function Footer() {
       </div>
 
       <div style={{
-        padding: '28px 80px',
+        padding: isMobile ? '24px 28px' : '28px 80px',
         display: 'flex', alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap', gap: '12px'

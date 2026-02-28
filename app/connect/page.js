@@ -86,7 +86,7 @@ export default function Connect() {
                 <em style={{ fontStyle: 'italic', color: '#06402B' }}>I will be in touch soon.</em>
               </h2>
               <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, lineHeight: 1.9 }}>
-                In the meantime feel free to follow along on Instagram and TikTok at @emmyrener.
+                In the meantime feel free to follow along on Instagram and TikTok.
               </p>
             </div>
           ) : (
@@ -169,7 +169,7 @@ export default function Connect() {
             <p style={{ fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.7 }}>Contact Details</p>
 
             {[
-              { label: 'Email', value: 'emmy@sophisticatedsocial.net', href: 'mailto:emmy@sophisticatedsocial.net' },
+              { label: 'Email', value: 'emmy@sophisticatedspreads.net', href: 'mailto:emmy@sophisticatedspreads.net' },
               { label: 'Based In', value: 'Paris, France', href: null },
               { label: 'Working With', value: 'Brands Across the Globe', href: null },
             ].map((item) => (

@@ -28,12 +28,12 @@ const timeline = [
   {
     year: '2022',
     location: 'USC, Los Angeles',
-    text: 'I was building a six figure business while studying Business and Public Relations at the University of Southern California. I also judged at the World Cheese Awards in the UK that year. Fight on!'
+    text: 'I was building a six figure business while studying Entrepreneurship and Public Relations at the University of Southern California. I also judged at the World Cheese Awards in the UK that year. Fight on!'
   },
   {
     year: 'Now',
     location: 'Paris, France',
-    text: 'I moved to Paris to develop a more global taste for marketing and honestly some might say I am the real Emily in Paris. I am now taking everything I learned building Sophisticated Spreads and helping other founder led brands build the kind of social presence that actually moves the needle.'
+    text: 'I moved to Paris to develop a more global taste for marketing and honestly some might say I am the real Emily in Paris. I am now taking everything I learned building Sophisticated Spreads and helping other brands build the kind of social presence that actually moves the needle.'
   },
 ]
 
@@ -69,12 +69,11 @@ export default function Founder() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-        minHeight: isMobile ? 'auto' : '90vh',
+        minHeight: isMobile ? 'auto' : 'auto',
         background: '#FFFFFF'
       }}>
         <div style={{
-          padding: isMobile ? '80px 28px 52px' : '90px 70px',
-          display: 'flex', flexDirection: 'column', justifyContent: 'center'
+padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDirection: 'column', justifyContent: 'center'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
             <div style={{ width: '32px', height: '1px', background: '#06402B' }}></div>
@@ -82,42 +81,64 @@ export default function Founder() {
           </div>
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: isMobile ? '2.8rem' : 'clamp(2.8rem, 4vw, 4.5rem)',
-            fontWeight: 400, lineHeight: 1.1,
-            marginBottom: '32px', color: '#1C1C1C'
+            fontSize: isMobile ? '2.4rem' : 'clamp(2.2rem, 3vw, 3.5rem)',            fontWeight: 400, lineHeight: 1.1,
+            marginBottom: '32px', color: '#1C1C1C',
+            letterSpacing: '-0.02em'
           }}>
-            Hi, I am Emmy.<br />
+            Meet Emmy.<br />
             <em style={{ fontStyle: 'italic', color: '#06402B' }}>Nice to meet you.</em>
           </h1>
-          <p style={{ fontSize: '0.92rem', lineHeight: 2, color: '#7A7A72', fontWeight: 300, marginBottom: '20px', maxWidth: '460px' }}>
-            I grew up in Palos Verdes, California with a love for storytelling since day one. I built a cheeseboard business called Sophisticated Spreads from family holiday parties into a cheese empire with six figures in sales and half a million followers across platforms.
+          <p style={{ fontSize: '0.85rem', lineHeight: 1.75, color: '#7A7A72', fontWeight: 300, marginBottom: '16px', maxWidth: '460px' }}>
+            I grew up in Palos Verdes, California with a love for all things storytelling since day one. As a people person, I love meeting people and hearing their story.
           </p>
-          <p style={{ fontSize: '0.92rem', lineHeight: 2, color: '#7A7A72', fontWeight: 300, maxWidth: '460px' }}>
-            After studying Business and Public Relations at USC, I moved to Paris to develop a more global taste for marketing. Now I want to help you build what I built.
+          <p style={{ fontSize: '0.85rem', lineHeight: 1.75, color: '#7A7A72', fontWeight: 300, marginBottom: '16px', maxWidth: '460px' }}>
+            When I was 18 years old and the pandemic hit, I decided to pivot and launch a cheeseboard company called Sophisticated Spreads. I turned basic cheeseboards and family holiday parties into stories I told on social media. I created a cheese empire with six figures in sales and half a million followers across platforms all because I understood how pivotal storytelling on social media truly is.
           </p>
+          <p style={{ fontSize: '0.85rem', lineHeight: 1.75, color: '#7A7A72', fontWeight: 300, marginBottom: '32px', maxWidth: '460px' }}>
+            After studying Entrepreneurship and Public Relations at USC, I moved to Paris to develop a more global taste for marketing. Now I want to help businesses create a social media legacy that feels authentically them, while also translating stories into sales.
+          </p>
+
+          {/* Follow Along */}
+          <div style={{ borderTop: '1px solid rgba(6,64,43,0.1)', paddingTop: '28px' }}>
+            <p style={{ fontSize: '0.62rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#06402B', opacity: 0.65, marginBottom: '16px' }}>Follow Along</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {[
+                { label: 'Instagram — @emmyrener', href: 'https://www.instagram.com/emmyrener' },
+                { label: 'TikTok — @emmyrener', href: 'https://www.tiktok.com/@emmyrener' },
+                { label: 'Sophisticated Spreads ↗', href: 'https://www.instagram.com/sophisticatedspreads' },
+              ].map((link) => (
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
+                  fontSize: '0.82rem', color: '#06402B', textDecoration: 'none',
+                  fontWeight: 300, letterSpacing: '0.03em', opacity: 0.8,
+                  transition: 'opacity 0.2s'
+                }}
+                  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                  onMouseLeave={e => e.currentTarget.style.opacity = '0.8'}
+                >{link.label}</a>
+              ))}
+            </div>
+            <p style={{ fontSize: '0.72rem', color: '#7A7A72', marginTop: '20px', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
+              Based in Paris, France and Los Angeles, California
+            </p>
+          </div>
         </div>
 
+        {/* Hero image */}
         <div style={{
-          position: 'relative',
-          background: '#EDE8E0',
-          overflow: 'hidden',
-          minHeight: isMobile ? '360px' : 'auto'
-        }}>
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(160deg, #CFC8BC 0%, #BAB3A7 100%)',
-            display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center', gap: '16px'
-          }}>
-            <div style={{ width: '72px', height: '72px', borderRadius: '50%', border: '1px solid rgba(6,64,43,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#06402B" strokeWidth="1.2">
-                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <path d="M21 15l-5-5L5 21"/>
-              </svg>
-            </div>
-            <span style={{ fontSize: '0.58rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: '#06402B', opacity: 0.4 }}>Emmy's photo here</span>
-          </div>
+  position: 'sticky',
+  top: '68px',
+  height: 'calc(100vh - 68px)',
+  overflow: 'hidden',
+}}>
+          <img
+            src="/images/featuredpic4.png"
+            alt="Emmy Rener"
+            style={{
+              width: '100%', height: '100%',
+              objectFit: 'cover', objectPosition: 'center 100%',
+              display: 'block', position: 'absolute', inset: 0
+            }}
+          />
         </div>
       </div>
 
@@ -173,7 +194,7 @@ export default function Founder() {
           <h2 style={{
             fontFamily: 'Playfair Display, serif',
             fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
-            fontWeight: 400, lineHeight: 1.2
+            fontWeight: 400, lineHeight: 1.2, letterSpacing: '-0.02em'
           }}>From Palos Verdes<br /><em style={{ fontStyle: 'italic', color: '#06402B' }}>to Paris.</em></h2>
         </div>
 
@@ -219,7 +240,7 @@ export default function Founder() {
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
           fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
-          fontWeight: 400, marginBottom: '60px', lineHeight: 1.2
+          fontWeight: 400, marginBottom: '60px', lineHeight: 1.2, letterSpacing: '-0.02em'
         }}>People who have<br /><em style={{ fontStyle: 'italic', color: '#06402B' }}>trusted the work.</em></h2>
 
         <div style={{
@@ -256,7 +277,7 @@ export default function Founder() {
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
           fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
-          fontWeight: 400, marginBottom: '60px', lineHeight: 1.2
+          fontWeight: 400, marginBottom: '60px', lineHeight: 1.2, letterSpacing: '-0.02em'
         }}>As seen in</h2>
 
         <div style={{
@@ -281,7 +302,7 @@ export default function Founder() {
         </div>
       </div>
 
-      {/* ── PHOTO GALLERY ── */}
+      {/* ── PHOTO GALLERY ──
       <div style={{ padding: isMobile ? '72px 28px' : '100px 70px', background: '#F7F3EE' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '52px' }}>
           <div style={{ width: '32px', height: '1px', background: '#06402B' }}></div>
@@ -292,26 +313,56 @@ export default function Founder() {
           gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
           gap: isMobile ? '12px' : '14px'
         }}>
-          {['Emmy in Paris', 'Emmy at work', 'Emmy with camera'].map((label) => (
-            <div key={label} style={{ aspectRatio: '3/4', position: 'relative', overflow: 'hidden', background: '#EDE8E0' }}>
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(135deg, #D4CEC4 0%, #C0B9AE 100%)',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center', gap: '10px'
-              }}>
-                <div style={{ width: '52px', height: '52px', borderRadius: '50%', border: '1px solid rgba(6,64,43,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06402B" strokeWidth="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                    <path d="M21 15l-5-5L5 21"/>
-                  </svg>
-                </div>
-                <span style={{ fontSize: '0.58rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#06402B', opacity: 0.38 }}>{label}</span>
-              </div>
+          {[
+            { label: 'Emmy in Paris', image: '/images/emmyatief.png' },
+            { label: 'Emmy at work', image: '/images/emmygreenhornranch.png' },
+            { label: 'Emmy with camera', image: '/images/emmywithcamera.png' },
+          ].map((item) => (
+            <div key={item.label} style={{ aspectRatio: '3/4', position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
+              <img
+                src={item.image}
+                alt={item.label}
+                style={{
+                  width: '100%', height: '100%',
+                  objectFit: 'cover', objectPosition: 'center top',
+                  display: 'block'
+                }}
+              />
             </div>
           ))}
         </div>
+      </div> */}
+
+      {/* ── CONNECT CTA ── */}
+      <div style={{ background: '#FFFFFF', padding: isMobile ? '72px 28px' : '100px 70px', textAlign: 'center' }}>
+        <p style={{ fontSize: '0.62rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#06402B', opacity: 0.65, marginBottom: '24px' }}>Let's Work Together</p>
+        <h2 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
+          fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
+          marginBottom: '24px', letterSpacing: '-0.02em'
+        }}>
+          Ready to build something<br />
+          <em style={{ fontStyle: 'italic', color: '#06402B' }}>worth talking about?</em>
+        </h2>
+        <p style={{ fontSize: '0.85rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300, maxWidth: '480px', margin: '0 auto 40px' }}>
+          I love hearing from brands who are ready to take their social presence seriously. Tell me a little about yourself and what you are looking to build and I will be in touch.
+        </p>
+        <p style={{ fontSize: '0.78rem', color: '#7A7A72', fontStyle: 'italic', fontFamily: 'Playfair Display, serif', marginBottom: '40px' }}>
+          Based in Paris, France and Los Angeles, California
+        </p>
+        <a href="/connect" style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          padding: '17px 48px',
+          background: '#06402B', color: '#FFFFFF',
+          textDecoration: 'none', fontSize: '0.72rem',
+          letterSpacing: '0.15em', textTransform: 'uppercase',
+          fontWeight: 400, border: '1px solid #06402B',
+          borderRadius: '10px', transition: 'all 220ms cubic-bezier(0.22, 1, 0.36, 1)'
+        }}
+          onMouseEnter={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#06402B' }}
+          onMouseLeave={e => { e.currentTarget.style.background = '#06402B'; e.currentTarget.style.color = '#FFFFFF' }}
+        >Get In Touch →</a>
       </div>
 
     </div>
