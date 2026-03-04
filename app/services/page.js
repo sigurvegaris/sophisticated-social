@@ -30,24 +30,21 @@ const services = [
 ]
 
 const projects = [
-    { category: 'Food', items: [
-        { name: 'St Dalfour', image: '/images/dalfourpic.png' },
-        { name: 'Sophisticated Spreads', image: '/images/sophisticatedspreads1.png' },
-        { name: "Bachan's", image: '/images/japanesedip.png' },
-        { name: 'Tête de Moine', image: '/images/emmyatief.png' },
-        { name: 'Fiscalini', image: '/images/cheddarhorizontal.png' },
-      ]},
-    { category: 'Lifestyle', items: [
-      { name: 'Caudalie', image: '/images/caudalie.png' },
-      { name: 'Camp Fleurish', image: '/images/campfleurish2.png' },
-    ]},
-    { category: 'Hotels & Travel', items: [
-        { name: 'Greenhorn Ranch', image: '/images/emmygreenhornranch.png' },
-      ]},
-  ]
+  { category: 'Food', items: [
+    { name: 'St Dalfour', image: '/images/dalfourpic.png' },
+    { name: 'Sophisticated Spreads', image: '/images/sophisticatedspreads1.png' },
+    { name: "Bachan's", image: '/images/japanesedip.png' },
+    { name: 'Social Media Takeover for the International Cheese Awards', image: '/images/emmyatief.png' },
+  ]},
+  { category: 'Lifestyle', items: [
+    { name: 'Caudalie', image: '/images/caudalie.png' },
+    { name: 'Camp Fleurish', image: '/images/campfleurish2.png' },
+  ]},
+
+]
 
 export default function Services() {
-    const [open, setOpen] = useState(null)
+  const [open, setOpen] = useState(null)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -65,47 +62,17 @@ export default function Services() {
         padding: isMobile ? '80px 28px 52px' : '120px 80px 80px',
         background: '#FFFFFF',
         borderBottom: '1px solid rgba(6,64,43,0.08)',
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-        gap: isMobile ? '32px' : '80px',
-        alignItems: 'end'
       }}>
-        <div>
-          <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '28px', opacity: 0.7 }}>What We Offer</p>
-          <h1 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: isMobile ? '2.6rem' : 'clamp(2.8rem, 4vw, 4.5rem)',
-            fontWeight: 400, lineHeight: 1.1, color: '#1C1C1C',
-            letterSpacing: '-0.02em'
-          }}>
-            This is where we are<br />
-            <em style={{ fontStyle: 'italic', color: '#06402B' }}>different from the rest.</em>
-          </h1>
-        </div>
-        <div style={{ alignSelf: 'flex-start', display: 'flex', flexDirection: 'column', gap: '0px' }}>
-  {[
-    // { num: '01', title: 'Story First', desc: 'Every strategy starts with finding what makes your brand worth following.' },
-    // { num: '02', title: 'Built Around You', desc: 'No templates. No generic packages. Every client gets a custom approach.' },
-    // { num: '03', title: 'Results That Last', desc: 'We build communities that engage, trust, and buy — not just follower counts.' },
-  ].map((item, i) => (
-    <div key={i} style={{
-      display: 'flex', alignItems: 'flex-start', gap: '14px',
-      padding: '4px 0',
-      borderBottom: i < 2 ? '1px solid rgba(6,64,43,0.08)' : 'none',
-    }}>
-      <span style={{
-        fontFamily: 'Playfair Display, serif',
-        fontSize: '0.7rem', color: '#06402B',
-        opacity: 0.4, letterSpacing: '0.1em',
-        minWidth: '24px', paddingTop: '2px'
-      }}>{item.num}</span>
-      <div>
-        <p style={{ fontSize: '0.9rem', fontWeight: 500, color: '#1C1C1C', marginBottom: '1px', letterSpacing: '0.02em' }}>{item.title}</p>
-        <p style={{ fontSize: '0.85rem', color: '#7A7A72', fontWeight: 300, lineHeight: 1.7 }}>{item.desc}</p>
-      </div>
-    </div>
-  ))}
-</div>
+        <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '28px', opacity: 0.7 }}>What We Offer</p>
+        <h1 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: isMobile ? '2.6rem' : 'clamp(2.8rem, 4vw, 4.5rem)',
+          fontWeight: 400, lineHeight: 1.1, color: '#1C1C1C',
+          letterSpacing: '-0.02em', maxWidth: '700px'
+        }}>
+          This is where we are<br />
+          <em style={{ fontStyle: 'italic', color: '#06402B' }}>different from the rest.</em>
+        </h1>
       </div>
 
       {/* ── ACCORDION + IMAGE ── */}
@@ -161,139 +128,103 @@ export default function Services() {
         </div>
 
         {!isMobile && (
-            <div style={{ position: 'relative', background: '#EDE8E0', minHeight: '600px', marginTop: '-400px', borderRadius: '16px', overflow: 'hidden' }}>
-<img
-  src="/images/emmywithcamera.png"
-  alt="Emmy Rener"
-  style={{
-    position: 'absolute', inset: 0,
-    width: '100%', height: '100%',
-    objectFit: 'cover', objectPosition: 'center top',
-    display: 'block',
-    borderRadius: '16px'
-  }}
-/>
+          <div style={{ position: 'relative', background: '#EDE8E0', minHeight: '600px', marginTop: '-400px', borderRadius: '16px', overflow: 'hidden' }}>
+            <img
+              src="/images/emmywithcamera.png"
+              alt="Emmy Rener"
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%',
+                objectFit: 'cover', objectPosition: 'center top',
+                display: 'block', borderRadius: '16px'
+              }}
+            />
           </div>
         )}
       </div>
 
-      {/* ── WHY WORK WITH US ── */}
-      <div style={{
-        background: '#06402B',
-        padding: isMobile ? '72px 28px' : '120px 80px',
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-        gap: isMobile ? '48px' : '100px',
-        alignItems: 'center'
+{/* ── PREVIOUS PROJECTS ── */}
+<div style={{ padding: isMobile ? '72px 28px' : '120px 80px', background: '#FFFFFF' }}>
+  <div style={{
+    display: 'flex', justifyContent: 'space-between',
+    alignItems: isMobile ? 'flex-start' : 'flex-end',
+    marginBottom: '80px', flexWrap: 'wrap', gap: '32px',
+    flexDirection: isMobile ? 'column' : 'row'
+  }}>
+    <div>
+      <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Selected Work</p>
+      <h2 style={{
+        fontFamily: 'Playfair Display, serif',
+        fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
+        fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
+        letterSpacing: '-0.02em'
       }}>
-        <div>
-          <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.5)', marginBottom: '32px' }}>Why Work With Us</p>
-          <h2 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
-            fontWeight: 400, color: '#F7F3EE', lineHeight: 1.25, marginBottom: '32px',
-            letterSpacing: '-0.02em'
-          }}>
-            We are not selling you<br />
-            <em style={{ fontStyle: 'italic', color: 'rgba(247,243,238,0.6)' }}>a theory.</em>
-          </h2>
-          <p style={{ fontSize: '1.05rem', lineHeight: 2, color: 'rgba(247,243,238,0.6)', fontWeight: 300 }}>
-            Every service we offer is something we have done ourselves. We grew Sophisticated Spreads to half a million followers and six figures in sales using exactly the strategies we now bring to our clients. Sofia Vergara posted about our work. Jessica Alba discovered us on Instagram. We went viral on TikTok with 342,000 followers. This is not theory. This is what actually works.
-          </p>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-          {[
-            { label: 'Real Experience', desc: 'We built and scaled our own brand before consulting for others.' },
-            { label: 'Global Perspective', desc: 'Based in Paris, working with brands across the world.' },
-            { label: 'Genuine Community', desc: 'We build audiences that actually engage, buy, and stay.' },
-            { label: 'Personal Attention', desc: 'We work with a small number of clients so every brand gets our full focus.' },
-          ].map((item, i) => (
-            <div key={i} style={{
-              padding: '32px 36px',
-              background: 'rgba(255,255,255,0.05)',
-              borderLeft: '2px solid rgba(247,243,238,0.1)',
-              transition: 'border-color 0.3s, background 0.3s'
-            }}
-              onMouseEnter={e => { e.currentTarget.style.borderLeftColor = '#F7F3EE'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderLeftColor = 'rgba(247,243,238,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)' }}
-            >
-              <p style={{ fontSize: '0.9rem', fontWeight: 500, color: '#F7F3EE', marginBottom: '8px', letterSpacing: '0.03em' }}>{item.label}</p>
-              <p style={{ fontSize: '0.85rem', color: 'rgba(247,243,238,0.5)', fontWeight: 300, lineHeight: 1.7 }}>{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── PREVIOUS PROJECTS ── */}
-      <div style={{ padding: isMobile ? '72px 28px' : '120px 80px', background: '#F7F3EE' }}>
-        <div style={{
-          display: 'flex', justifyContent: 'space-between',
-          alignItems: isMobile ? 'flex-start' : 'flex-end',
-          marginBottom: '80px', flexWrap: 'wrap', gap: '32px',
-          flexDirection: isMobile ? 'column' : 'row'
-        }}>
-          <div>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Selected Work</p>
-            <h2 style={{
-              fontFamily: 'Playfair Display, serif',
-              fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
-              fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
-              letterSpacing: '-0.02em'
-            }}>
-              Previous<br />
-              <em style={{ fontStyle: 'italic', color: '#06402B' }}>Projects.</em>
-            </h2>
-          </div>
-          <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, maxWidth: '380px', lineHeight: 1.9 }}>
-            A selection of brands and campaigns we have had the pleasure of working with.
-          </p>
-        </div>
-
-        {projects.map((cat) => (
-  <div key={cat.category} style={{ marginBottom: '64px' }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px' }}>
-      <span style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.6 }}>{cat.category}</span>
-      <div style={{ flex: 1, height: '1px', background: 'rgba(6,64,43,0.1)' }}></div>
+        Previous<br />
+        <em style={{ fontStyle: 'italic', color: '#06402B' }}>Projects.</em>
+      </h2>
     </div>
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(3, 1fr)',
-      gap: isMobile ? '12px' : '16px'
-    }}>
-      {cat.items.map((item, i) => (
-        <div key={i} style={{
-          aspectRatio: '4/5', position: 'relative',
-          overflow: 'hidden', borderRadius: '8px',
-          transition: 'transform 0.4s ease'
-        }}
-          onMouseEnter={e => e.currentTarget.style.transform = 'scale(0.98)'}
-          onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          <img
-            src={item.image}
-            alt={item.name}
-            style={{
-              width: '100%', height: '100%',
-              objectFit: 'cover', objectPosition: 'center',
-              display: 'block'
-            }}
-          />
-          <div style={{
-            position: 'absolute', bottom: 0, left: 0, right: 0,
-            padding: '20px',
-            background: 'linear-gradient(to top, rgba(6,64,43,0.7), transparent)'
-          }}>
-            <p style={{ color: 'white', fontSize: '0.8rem', letterSpacing: '0.1em', fontWeight: 400 }}>{item.name}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+    <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, maxWidth: '380px', lineHeight: 1.9 }}>
+      A selection of brands and campaigns we have had the pleasure of working with.
+    </p>
   </div>
-))}
+
+  {projects.map((cat) => (
+    <div key={cat.category} style={{ marginBottom: '80px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
+        <span style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.6 }}>{cat.category}</span>
+        <div style={{ flex: 1, height: '1px', background: 'rgba(6,64,43,0.1)' }}></div>
       </div>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr 1fr' : `repeat(${Math.min(cat.items.length, 4)}, 1fr)`,
+        gap: '0px',
+      }}>
+        {cat.items.map((item, i) => (
+          <div key={i} style={{
+            display: 'flex', flexDirection: 'column',
+            borderRight: !isMobile && i < cat.items.length - 1 ? '1px solid rgba(6,64,43,0.08)' : 'none',
+            padding: isMobile ? '0 8px 24px' : '0 32px 0',
+            transition: 'background 0.3s',
+            cursor: 'default'
+          }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(6,64,43,0.02)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          >
+            <div style={{
+              width: '100%',
+              aspectRatio: '1/1',
+              overflow: 'hidden',
+              borderRadius: '4px',
+              marginBottom: '16px',
+              background: '#F7F3EE'
+            }}>
+              <img
+                src={item.image}
+                alt={item.name}
+                style={{
+                  width: '100%', height: '100%',
+                  objectFit: 'cover', objectPosition: 'center top',
+                  display: 'block',
+                  transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
+                }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              />
+            </div>
+            <p style={{
+              fontSize: '0.82rem', color: '#1C1C1C',
+              letterSpacing: '0.02em', fontWeight: 400,
+              lineHeight: 1.4, marginBottom: '6px'
+            }}>{item.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
 
       {/* ── BOTTOM CTA ── */}
-      <div style={{ padding: isMobile ? '60px 28px' : '90px 80px', background: '#FFFFFF', textAlign: 'center' }}>
+      <div style={{ padding: isMobile ? '24px 28px 60px' : '0px 80px 90px', background: '#FFFFFF', textAlign: 'center' }}>
         <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '32px', opacity: 0.7 }}>Ready to Start</p>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',

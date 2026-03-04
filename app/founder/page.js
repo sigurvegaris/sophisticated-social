@@ -104,8 +104,7 @@ padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDi
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {[
                 { label: 'Instagram — @emmyrener', href: 'https://www.instagram.com/emmyrener' },
-                { label: 'TikTok — @emmyrener', href: 'https://www.tiktok.com/@emmyrener' },
-                { label: 'Sophisticated Spreads ↗', href: 'https://www.instagram.com/sophisticatedspreads' },
+                { label: 'TikTok — @sophisticatedspreads', href: 'https://www.tiktok.com/@sophisticatedspreads' },
               ].map((link) => (
                 <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
                   fontSize: '0.82rem', color: '#06402B', textDecoration: 'none',
@@ -155,81 +154,9 @@ padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDi
         <p style={{ fontSize: '0.62rem', letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.35)', marginTop: '28px' }}>Emmy Rener, on going viral overnight</p>
       </div>
 
-      {/* ── STATS ── */}
-      <div style={{
-        background: '#F7F3EE',
-        padding: isMobile ? '64px 28px' : '80px 70px',
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
-        gap: isMobile ? '12px' : '2px'
-      }}>
-        {[
-          { num: '200K', label: 'Instagram Followers' },
-          { num: '342K', label: 'TikTok Followers' },
-          { num: '6-Fig', label: 'Annual Sales Built' },
-          { num: '$25K', label: 'Single Event Record' },
-        ].map((s, i) => (
-          <div key={i} style={{
-            textAlign: 'center',
-            padding: isMobile ? '32px 16px' : '40px 20px',
-            background: '#FFFFFF'
-          }}>
-            <div style={{
-              fontFamily: 'Playfair Display, serif',
-              fontSize: isMobile ? '1.8rem' : 'clamp(2rem, 3vw, 3rem)',
-              fontWeight: 400, color: '#06402B', lineHeight: 1, marginBottom: '12px'
-            }}>{s.num}</div>
-            <div style={{ fontSize: '0.62rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#7A7A72', fontWeight: 300 }}>{s.label}</div>
-          </div>
-        ))}
-      </div>
 
-      {/* ── TIMELINE ── */}
-      <div style={{ background: '#FFFFFF', padding: isMobile ? '72px 28px' : '100px 70px' }}>
-        <div style={{ marginBottom: '64px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <div style={{ width: '32px', height: '1px', background: '#06402B' }}></div>
-            <p style={{ fontSize: '0.62rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#06402B' }}>The Journey</p>
-          </div>
-          <h2 style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
-            fontWeight: 400, lineHeight: 1.2, letterSpacing: '-0.02em'
-          }}>From Palos Verdes<br /><em style={{ fontStyle: 'italic', color: '#06402B' }}>to Paris.</em></h2>
-        </div>
 
-        <div style={{ position: 'relative' }}>
-          {!isMobile && (
-            <div style={{ position: 'absolute', left: '140px', top: 0, bottom: 0, width: '1px', background: 'rgba(6,64,43,0.1)' }}></div>
-          )}
-          {timeline.map((item, i) => (
-            <div
-              key={i}
-              ref={el => timelineRefs.current[i] = el}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : '140px 1fr',
-                gap: isMobile ? '8px' : '60px',
-                marginBottom: isMobile ? '48px' : '56px',
-                opacity: visible.includes(i) ? 1 : 0,
-                transform: visible.includes(i) ? 'translateY(0)' : 'translateY(24px)',
-                transition: `opacity 0.7s ease ${i * 0.1}s, transform 0.7s ease ${i * 0.1}s`
-              }}
-            >
-              <div style={{ paddingRight: isMobile ? '0' : '32px', textAlign: isMobile ? 'left' : 'right' }}>
-                <div style={{ fontFamily: 'Playfair Display, serif', fontSize: '1rem', fontWeight: 600, color: '#06402B', marginBottom: '4px' }}>{item.year}</div>
-                <div style={{ fontSize: '0.65rem', color: '#7A7A72', fontWeight: 300, letterSpacing: '0.05em' }}>{item.location}</div>
-              </div>
-              <div style={{ paddingLeft: isMobile ? '0' : '60px', position: 'relative' }}>
-                {!isMobile && (
-                  <div style={{ position: 'absolute', left: '-4px', top: '6px', width: '8px', height: '8px', borderRadius: '50%', background: '#06402B' }}></div>
-                )}
-                <p style={{ fontSize: '0.88rem', lineHeight: 2, color: '#7A7A72', fontWeight: 300 }}>{item.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+     
 
       {/* ── CELEBRITY CLIENTS ── */}
       <div style={{ background: '#F7F3EE', padding: isMobile ? '72px 28px' : '100px 70px' }}>
@@ -268,39 +195,7 @@ padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDi
         </div>
       </div>
 
-      {/* ── PRESS ── */}
-      <div style={{ background: '#FFFFFF', padding: isMobile ? '72px 28px' : '100px 70px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-          <div style={{ width: '32px', height: '1px', background: '#06402B' }}></div>
-          <p style={{ fontSize: '0.62rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#06402B' }}>Press</p>
-        </div>
-        <h2 style={{
-          fontFamily: 'Playfair Display, serif',
-          fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
-          fontWeight: 400, marginBottom: '60px', lineHeight: 1.2, letterSpacing: '-0.02em'
-        }}>As seen in</h2>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-          gap: isMobile ? '12px' : '2px'
-        }}>
-          {press.map((p, i) => (
-            <div key={i} style={{
-              padding: isMobile ? '32px 28px' : '44px',
-              background: '#F7F3EE',
-              borderBottom: '2px solid transparent',
-              transition: 'border-color 0.3s, background 0.3s'
-            }}
-              onMouseEnter={e => { e.currentTarget.style.borderBottomColor = '#06402B'; e.currentTarget.style.background = '#FFFFFF' }}
-              onMouseLeave={e => { e.currentTarget.style.borderBottomColor = 'transparent'; e.currentTarget.style.background = '#F7F3EE' }}
-            >
-              <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.3rem', fontWeight: 600, color: '#06402B', marginBottom: '12px' }}>{p.name}</p>
-              <p style={{ fontSize: '0.78rem', lineHeight: 1.7, color: '#7A7A72', fontWeight: 300 }}>{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      
 
       {/* ── PHOTO GALLERY ──
       <div style={{ padding: isMobile ? '72px 28px' : '100px 70px', background: '#F7F3EE' }}>

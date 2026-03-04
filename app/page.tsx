@@ -7,22 +7,8 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false)
   const [heroVisible, setHeroVisible] = useState(false)
   const [scrollY, setScrollY] = useState(0)
-  const [introVisible, setIntroVisible] = useState(false)
-  const [quoteVisible, setQuoteVisible] = useState(false)
   const [methodVisible, setMethodVisible] = useState(false)
   const [ctaHover, setCtaHover] = useState(false)
-  const [ctaInView, setCtaInView] = useState(false)
-
-  useEffect(() => {
-    const el = sectionsRef.current[3]
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setCtaInView(true) },
-      { threshold: 0.25 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -50,8 +36,6 @@ export default function Home() {
         ([entry]) => {
           if (entry.isIntersecting) {
             setSectionsVisible(prev => [...prev, i])
-            if (i === 0) setIntroVisible(true)
-            if (i === 2) setQuoteVisible(true)
             if (i === 1) setMethodVisible(true)
           }
         },
@@ -127,13 +111,8 @@ export default function Home() {
           transform: scale(1.03);
           box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
         }
-        .btn-primary:focus-visible {
-          outline: 2px solid #06402B;
-          outline-offset: 3px;
-        }
         .btn-primary:hover .arr { transform: translateX(6px); }
         .arr { display: inline-block; transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1); }
-
         .link-ghost {
           display: inline-flex;
           align-items: center;
@@ -145,11 +124,9 @@ export default function Home() {
           text-decoration: none;
           font-weight: 300;
           opacity: 0.65;
-          position: relative;
           transition: opacity 0.3s;
         }
         .link-ghost:hover { opacity: 1; }
-
         .link-underline {
           display: inline-flex;
           align-items: center;
@@ -173,19 +150,6 @@ export default function Home() {
         }
         .link-underline:hover::after { width: 100%; }
         .link-underline:hover .arr { transform: translateX(4px); }
-
-        .tcard {
-          background: #FFFFFF;
-          border-left: 3px solid #06402B;
-          position: relative;
-          transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .tcard:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 8px 32px rgba(6,64,43,0.08);
-          border-left-color: #043D22;
-        }
-
         .mcard {
           position: relative;
           overflow: hidden;
@@ -195,28 +159,6 @@ export default function Home() {
         .mcard:hover h3 { transform: translateY(-4px); }
         .mcard:hover p { color: #5A5A52 !important; }
         .mcard h3 { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
-
-        .quote-word {
-          display: inline-block;
-          opacity: 0;
-          transform: translateY(8px);
-          transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .quote-word.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .name-line {
-          display: block;
-          height: 1px;
-          background: rgba(6,64,43,0.3);
-          width: 0;
-          transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-          margin: 0 auto;
-        }
-        .name-line.visible { width: 48px; }
-
         @media (max-width: 768px) {
           .scroll-line { display: none; }
         }
@@ -229,17 +171,16 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section style={{
-  display: 'grid',
-  gridTemplateColumns: isMobile ? '1fr' : '52% 48%',
-    minHeight: 'calc(100vh - 68px)',
-  background: '#FFFFFF',
-  position: 'relative'
-}}>
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '52% 48%',
+        minHeight: 'calc(100vh - 68px)',
+        background: '#FFFFFF',
+        position: 'relative'
+      }}>
         <div style={{
           display: 'flex', flexDirection: 'column', justifyContent: 'center',
           padding: isMobile ? '64px 28px' : '80px 72px 80px 90px',
         }}>
-          {/* Eyebrow */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '52px',
             opacity: heroVisible ? 1 : 0,
@@ -249,7 +190,6 @@ export default function Home() {
             <p style={{ fontSize: '0.68rem', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#06402B', fontWeight: 400, opacity: 0.65 }}>For Founder-Led Brands</p>
           </div>
 
-          {/* Headline */}
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
             fontWeight: 400,
@@ -265,22 +205,19 @@ export default function Home() {
               transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s',
               marginBottom: '2px'
             }}>Where story,</span>
-
-<em style={{
-  display: 'block',
-  fontStyle: 'italic',
-  color: '#043D22',
-  fontSize: isMobile ? '3rem' : 'clamp(2.9rem, 4.3vw, 4.9rem)',
-  letterSpacing: '-0.035em',
-  lineHeight: 0.95,
-  marginBottom: '2px',
-  paddingLeft: '2px',
-  overflow: 'visible',
-  opacity: heroVisible ? 1 : 0,
-  transform: heroVisible ? 'translateX(0)' : 'translateX(-12px)',
-  transition: 'opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.28s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s'
-}}>strategy,</em>
-
+            <em style={{
+              display: 'block',
+              fontStyle: 'italic',
+              color: '#043D22',
+              fontSize: isMobile ? '3rem' : 'clamp(2.9rem, 4.3vw, 4.9rem)',
+              letterSpacing: '-0.035em',
+              lineHeight: 0.95,
+              marginBottom: '2px',
+              paddingLeft: '2px',
+              opacity: heroVisible ? 1 : 0,
+              transform: heroVisible ? 'translateX(0)' : 'translateX(-12px)',
+              transition: 'opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.28s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s'
+            }}>strategy,</em>
             <span style={{
               display: 'block',
               fontSize: isMobile ? '2.9rem' : 'clamp(2.9rem, 4.3vw, 4.9rem)',
@@ -290,7 +227,6 @@ export default function Home() {
             }}>and sales meet.</span>
           </h1>
 
-          {/* Body copy */}
           <div style={{
             maxWidth: '420px', marginBottom: '52px',
             opacity: heroVisible ? 1 : 0,
@@ -298,13 +234,13 @@ export default function Home() {
             transition: 'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.55s'
           }}>
             <p style={{ fontSize: '0.98rem', lineHeight: 1.85, color: '#7A7A72', fontWeight: 300, marginBottom: '12px' }}>
-              Building a social media presence today<br />means more than posting consistently.
+              Building a social media presence today means more than posting consistently<br />
             </p>
             <p style={{ fontSize: '0.98rem', lineHeight: 1.85, color: '#7A7A72', fontWeight: 300, marginBottom: '12px' }}>
               It means telling a story people want to follow.
             </p>
             <p style={{ fontSize: '0.98rem', lineHeight: 1.85, color: '#7A7A72', fontWeight: 300, marginBottom: '12px' }}>
-              I built my own brand from scratch —<br />a community of over 500,000 and a six-figure<br />business rooted in content that feels human.
+              I built my own brand from scratch with a community of over 500,000 and a six figure  business rooted in content that feels human<br />
             </p>
             <p style={{ fontSize: '0.98rem', lineHeight: 1.85, color: '#7A7A72', fontWeight: 300, marginBottom: '20px' }}>
               Now I help others do the same.
@@ -314,7 +250,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* CTAs */}
           <div style={{
             display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap',
             opacity: heroVisible ? 1 : 0,
@@ -328,19 +263,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero image */}
         {!isMobile && (
-          <div style={{
-            position: 'relative', overflow: 'hidden',
-            borderRadius: '0',
-            margin: '0',
-          }}>
-            <div style={{
-              position: 'absolute', inset: 0, zIndex: 2,
-              background: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 512 512\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.75\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'1\'/%3E%3C/svg%3E")',
-              opacity: 0.025,
-              pointerEvents: 'none'
-            }} />
+          <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0', margin: '0' }}>
             <img
               src="/images/campfleurish1.png"
               alt="Emmy Rener"
@@ -359,129 +283,132 @@ export default function Home() {
         )}
       </section>
 
-      {/* ── HOW I DID IT ── */}
-      <div
-        ref={el => { sectionsRef.current[0] = el }}
-        className="grain-bg"
-        style={{ padding: isMobile ? '72px 28px' : '130px 88px', background: '#F7F3EE', position: 'relative', ...fade(0) }}
-      >
-        <p style={{ fontSize: '0.68rem', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#06402B', marginBottom: '36px', opacity: 0.65 }}>How I Did It</p>
-
-        <h2 style={{
-          fontFamily: 'Playfair Display, serif',
-          fontWeight: 400, color: '#1C1C1C',
-          marginBottom: '60px', maxWidth: '720px',
-          letterSpacing: '-0.025em'
-        }}>
-          <span style={{
-            display: 'block',
-            fontSize: isMobile ? '2.3rem' : 'clamp(2.5rem, 3.6vw, 3.8rem)',
-            lineHeight: 1.05,
-            marginBottom: '-4px'
-          }}>I don't follow trends.</span>
-          <em style={{
-            display: 'block',
-            fontStyle: 'italic',
-            color: '#043D22',
-            fontSize: isMobile ? 'clamp(2.7rem, 4vw, 4.4rem)' : 'clamp(2.8rem, 4.1vw, 4.4rem)',
-            letterSpacing: '-0.032em',
-            lineHeight: 1.0
-          }}>I create them.</em>
-        </h2>
-
+      {/* ── BRANDS ── */}
+      <div style={{ background: '#FFFFFF' }}>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          gap: isMobile ? '52px' : '80px',
-          alignItems: 'flex-start'
+          padding: isMobile ? '40px 28px' : '52px 80px',
+          borderTop: '1px solid rgba(6,64,43,0.08)',
         }}>
-          {/* Left — breathing copy */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300 }}>
-              I built Sophisticated Spreads from family holiday parties into a six-figure business with over half a million followers.
-            </p>
-            <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#4A4A42', fontWeight: 300, fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
-              Nobody handed me a playbook.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-              <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300 }}>I showed up.</p>
-              <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300 }}>I told my story honestly.</p>
-              <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300 }}>I created content people wanted to share.</p>
-            </div>
-            <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300 }}>
-              Sofia Vergara posted unprompted. Jessica Alba discovered me on Instagram.
-            </p>
-            <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#4A4A42', fontWeight: 300, fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
-              None of it happened by accident.
-            </p>
-            <p style={{ fontSize: '1.02rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300 }}>
-              That's the strategy I build brands on.
-            </p>
-            <a href="/founder" className="link-underline" style={{ marginTop: '16px' }}>
-              Read My Full Story <span className="arr">→</span>
-            </a>
-          </div>
+          <p style={{
+            fontSize: '0.68rem', letterSpacing: '0.3em',
+            textTransform: 'uppercase', color: '#06402B',
+            opacity: 0.5, textAlign: 'center', marginBottom: '40px'
+          }}>Brands We've Worked With</p>
 
-          {/* Right — staggered testimonial cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: isMobile ? '0' : '-180px' }}>
+          {/* Logo row */}
+          <div style={{
+            display: 'flex', flexWrap: 'wrap',
+            justifyContent: 'center', alignItems: 'center',
+            gap: isMobile ? '24px 32px' : '16px 48px',
+            marginBottom: '40px'
+          }}>
             {[
-              {
-                quote: 'Emmy, you would have been successful on your own because of your product and how hardworking you are. You are amazing.',
-                name: 'Sofia Vergara',
-                title: 'Actress',
-                delay: 0
-              },
-              {
-                quote: 'Sophisticated Spreads are the easiest way to elevate an occasion and make your guests feel like they need to step up their own game.',
-                name: 'Jesse Tyler Ferguson',
-                title: 'Actor, Modern Family',
-                delay: 150,
-                offset: isMobile ? 0 : 24
-              },
-            ].map((t, i) => (
-              <div key={i} className="tcard" style={{
-                padding: isMobile ? '44px 32px' : '56px 52px',
-                marginTop: t.offset ? `${t.offset}px` : '0',
-                opacity: introVisible ? 1 : 0,
-                transform: introVisible ? 'translateY(0)' : 'translateY(20px)',
-                transition: `opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) ${t.delay}ms, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) ${t.delay}ms`,
-              }}>
-                {/* Animated border line */}
-                <div style={{
-                  position: 'absolute', left: '-3px', top: 0,
-                  width: '3px',
-                  height: introVisible ? '100%' : '0%',
-                  background: '#06402B',
-                  transition: `height 0.8s cubic-bezier(0.22, 1, 0.36, 1) ${t.delay}ms`,
-                  transformOrigin: 'top'
-                }} />
-                <div style={{
-                  fontFamily: 'Playfair Display, serif',
-                  fontSize: '2.6rem', lineHeight: 1,
-                  color: '#06402B', opacity: 0.1,
-                  position: 'absolute', top: '18px', left: '44px'
-                }}>"</div>
-                <blockquote style={{
-                  fontFamily: 'Playfair Display, serif',
-                  fontStyle: 'italic',
-                  fontSize: isMobile ? '0.98rem' : '1.04rem',
-                  lineHeight: 1.9,
-                  color: 'rgba(28,28,28,0.8)',
-                  fontWeight: 400,
-                  marginBottom: '28px',
-                  paddingTop: '18px'
-                }}>{t.quote}</blockquote>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '18px', height: '1px', background: '#06402B', opacity: 0.35 }} />
-                  <div>
-                    <p style={{ fontSize: '0.76rem', fontWeight: 600, color: '#06402B', letterSpacing: '0.06em' }}>{t.name}</p>
-                    <p style={{ fontSize: '0.63rem', color: '#7A7A72', marginTop: '3px', letterSpacing: '0.05em' }}>{t.title}</p>
-                  </div>
-                </div>
+{ name: 'Microsoft', logo: '/logos/microsoft.png' },
+{ name: 'Hard Rock Hotels', logo: '/logos/hardrock.png' },
+{ name: 'QuickBooks', logo: '/logos/quickbooks.png' },
+{ name: 'Viator', logo: '/logos/viator.png' },
+{ name: "Jersey Mike's", logo: '/logos/jerseymikes.png' },
+{ name: 'Caudalie', logo: '/logos/caudalie.png' },
+{ name: 'CapCut', logo: '/logos/capcut.png' },
+            ].map((brand) => (
+              <div key={brand.name} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                filter: 'grayscale(100%)', opacity: 0.5,
+                transition: 'opacity 0.3s, filter 0.3s',
+              }}
+                onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'grayscale(0%)' }}
+                onMouseLeave={e => { e.currentTarget.style.opacity = '0.5'; e.currentTarget.style.filter = 'grayscale(100%)' }}
+              >
+                <img
+                  src={brand.logo}
+                  alt={brand.name}
+                  style={{ height: isMobile ? '28px' : '36px', width: 'auto', objectFit: 'contain', maxWidth: '120px' }}
+                />
               </div>
             ))}
           </div>
+
+          {/* Text brand list */}
+          <div style={{
+            display: 'flex', flexWrap: 'wrap',
+            justifyContent: 'center', alignItems: 'center',
+            gap: isMobile ? '12px 24px' : '8px 32px',
+            borderTop: '1px solid rgba(6,64,43,0.08)',
+            paddingTop: '32px'
+          }}>
+            {['Reynolds Wrap', 'Wine.com', 'Universal Yums',
+              'Volpi Foods', 'St Dalfour', "Bachan's", "Murray's Cheese",
+              'Love Beets', 'Kopiko', 'Wilde Chips', 'Magic Mind'].map((brand) => (
+              <span key={brand} style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: '0.85rem', color: '#1C1C1C',
+                letterSpacing: '0.04em', opacity: 0.45,
+                transition: 'opacity 0.3s', cursor: 'default'
+              }}
+                onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
+                onMouseLeave={e => e.currentTarget.style.opacity = '0.45'}
+              >{brand}</span>
+            ))}
+          </div>
         </div>
+
+{/* ── WORK PANELS ── */}
+<div style={{
+  borderTop: '1px solid rgba(6,64,43,0.08)',
+  overflow: 'hidden'
+}}>
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr 1fr',
+    gap: '0px',
+  }}>
+    {[
+      { image: '/images/dalfourpic.png', label: 'St Dalfour' },
+      { image: '/images/caudalie.png', label: 'Caudalie Paris' },
+      { image: '/images/japanesedip.png', label: "Bachan's" },
+    ].map((item, i) => (
+      <div key={i} style={{
+        position: 'relative',
+        overflow: 'hidden',
+        borderRight: i < 2 ? '1px solid rgba(6,64,43,0.08)' : 'none',
+        cursor: 'default'
+      }}>
+        <div style={{ overflow: 'hidden' }}
+          onMouseEnter={e => (e.currentTarget.querySelector('img') as HTMLImageElement).style.transform = 'scale(1.04)'}
+          onMouseLeave={e => (e.currentTarget.querySelector('img') as HTMLImageElement).style.transform = 'scale(1)'}
+        >
+          <img
+            src={item.image}
+            alt={item.label}
+            style={{
+              width: '100%',
+              height: isMobile ? '280px' : '520px',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block',
+              transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
+            }}
+          />
+        </div>
+        <div style={{
+          padding: '16px 20px',
+          borderTop: '1px solid rgba(6,64,43,0.08)',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+        }}>
+          <p style={{
+            fontSize: '0.68rem',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: '#1C1C1C',
+            fontWeight: 400,
+            opacity: 0.6
+          }}>{item.label}</p>
+          <span style={{ fontSize: '0.68rem', color: '#06402B', opacity: 0.4 }}>↗</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
       </div>
 
       {/* ── THE METHOD ── */}
@@ -542,44 +469,34 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── KIND WORDS ── */}
+{/* ── VIDEO ── */}
+<div style={{
+  background: '#F7F3EE',
+  padding: isMobile ? '64px 28px' : '90px 80px',
+  display: 'flex', flexDirection: 'column', alignItems: 'center'
+}}>
+  <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.7, marginBottom: '48px' }}>See It In Action</p>
+  <div style={{ width: '100%', maxWidth: '400px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}>
+    <iframe
+      src="https://www.instagram.com/reel/DL2aeqVog2B/embed"
+      width="400"
+      height="700"
+      frameBorder="0"
+      scrolling="no"
+      allowtransparency="true"
+      style={{ width: '100%', border: 'none', borderRadius: '12px' }}
+    />
+  </div>
+</div>
+
+      {/* ── CTA ── */}
       <div
-        ref={el => { sectionsRef.current[2] = el }}
-        className="grain-bg"
-        style={{
-          padding: isMobile ? '60px 28px' : '90px 88px',
-          background: '#F7F3EE', position: 'relative',
-          ...fade(2)
-        }}
-      >
-        <div style={{ maxWidth: '820px', margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: '0.68rem', letterSpacing: '0.32em', textTransform: 'uppercase', color: '#06402B', marginBottom: '52px', opacity: 0.65 }}>Kind Words</p>
-
-          <blockquote style={{
-            fontFamily: 'Playfair Display, serif', fontStyle: 'italic',
-            fontSize: isMobile ? '1.3rem' : 'clamp(1.45rem, 2.2vw, 2.0rem)',
-            fontWeight: 400, color: '#1C1C1C', lineHeight: 1.72,
-            marginBottom: '52px', letterSpacing: '-0.012em'
-          }}>
-            {'"Whenever I have a special occasion I am hosting, my first call is to Sophisticated Spreads. Highly recommend."'}
-          </blockquote>
-
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-            <span className={`name-line ${quoteVisible ? 'visible' : ''}`} />
-            <p style={{ fontSize: '0.84rem', fontWeight: 500, color: '#06402B', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Allison Janney</p>
-            <p style={{ fontSize: '0.7rem', color: '#7A7A72', letterSpacing: '0.06em' }}>Actress, The West Wing</p>
-          </div>
-        </div>
-      </div>
-
-{/* ── CTA ── */}
-    {/* ── CTA ── */}
-    <div
         ref={el => { sectionsRef.current[3] = el }}
         style={{
           background: '#FFFFFF',
           position: 'relative',
-          padding: isMobile ? '60px 28px' : '90px 88px',          textAlign: 'center',
+          padding: isMobile ? '60px 28px' : '90px 88px',
+          textAlign: 'center',
           ...fade(3)
         }}
       >

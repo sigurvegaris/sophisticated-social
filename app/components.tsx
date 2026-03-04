@@ -128,14 +128,14 @@ export function Footer() {
         gap: isMobile ? '40px' : '60px',
         borderBottom: '1px solid rgba(247,243,238,0.08)'
       }}>
-        <div style={{ gridColumn: isMobile ? '1 / -1' : 'auto' }}>
-          <div style={{ lineHeight: 1, marginBottom: '24px' }}>
-            <div style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontWeight: 400, fontSize: '1.4rem', color: 'rgba(247,243,238,0.9)' }}>sophisticated</div>
-            <div style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: '1.4rem', color: 'rgba(247,243,238,0.9)', marginTop: '-2px' }}>social</div>
-            <div style={{ fontSize: '0.55rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.45)', marginTop: '6px' }}>by Emmy Rener</div>
-          </div>
+<div style={{ gridColumn: isMobile ? '1 / -1' : 'auto', paddingLeft: isMobile ? '0' : '0', marginLeft: isMobile ? '0' : '-20px' }}>
+        <div style={{ lineHeight: 1, marginBottom: '24px', textAlign: 'center' }}>
+  <div style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontWeight: 400, fontSize: '1.25rem', color: 'rgba(247,243,238,0.9)' }}>sophisticated</div>
+  <div style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: '1.25rem', color: 'rgba(247,243,238,0.9)', marginTop: '-2px' }}>social</div>
+  <div style={{ fontSize: '0.5rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(247,243,238,0.45)', marginTop: '2px' }}>by Emmy Rener</div>
+</div>
           <p style={{ fontSize: '0.88rem', lineHeight: 1.9, color: 'rgba(247,243,238,0.45)', fontWeight: 300, maxWidth: '260px' }}>
-            Intentional social strategy and content for founder-led brands ready to scale across the globe.
+            {/* Intentional social strategy and content for founder-led brands ready to scale across the globe. */}
           </p>
         </div>
 
@@ -180,8 +180,7 @@ export function Footer() {
             {[
               { label: 'emmy@sophisticatedsocial.net', href: 'mailto:emmy@sophisticatedsocial.net' },
               { label: 'Instagram — @emmyrener', href: 'https://www.instagram.com/emmyrener' },
-              { label: 'TikTok — @emmyrener', href: 'https://www.tiktok.com/@emmyrener' },
-              { label: 'Sophisticated Spreads ↗', href: 'https://www.sophisticatedspreads.com' },
+              { label: 'TikTok — @sophisticatedspreads', href: 'https://www.tiktok.com/@sophisticatedspreads' },
             ].map((link) => (
               <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
                 fontSize: '0.88rem', color: 'rgba(247,243,238,0.55)',
