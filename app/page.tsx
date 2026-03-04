@@ -477,14 +477,10 @@ export default function Home() {
 }}>
   <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.7, marginBottom: '48px' }}>See It In Action</p>
   <div style={{ width: '100%', maxWidth: '400px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}>
-    <iframe
-      src="https://www.instagram.com/reel/DL2aeqVog2B/embed"
-      width="400"
-      height="700"
-      frameBorder="0"
-      scrolling="no"
-      style={{ width: '100%', border: 'none', borderRadius: '12px' }}
-    />
+  <iframe
+  src="https://www.instagram.com/reel/DL2aeqVog2B/embed"
+  style={{ width: '100%', height: '700px', border: 'none', borderRadius: '12px', display: 'block' }}
+/>
   </div>
 </div>
 
