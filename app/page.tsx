@@ -263,7 +263,8 @@ export default function Home() {
           </div>
         </div>
 
-        {!isMobile && (
+{/* Hero image - desktop */}
+{!isMobile && (
           <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0', margin: '0' }}>
             <img
               src="/images/campfleurish1.png"
@@ -277,6 +278,21 @@ export default function Home() {
                 transformOrigin: 'center top',
                 transition: 'transform 0.05s linear',
                 willChange: 'transform'
+              }}
+            />
+          </div>
+        )}
+
+        {/* Hero image - mobile */}
+        {isMobile && (
+          <div style={{ width: '100%', height: '380px', overflow: 'hidden' }}>
+            <img
+              src="/images/campfleurish1.png"
+              alt="Emmy Rener"
+              style={{
+                width: '100%', height: '100%',
+                objectFit: 'cover', objectPosition: 'center 40%',
+                display: 'block'
               }}
             />
           </div>
@@ -403,8 +419,7 @@ export default function Home() {
             fontWeight: 400,
             opacity: 0.6
           }}>{item.label}</p>
-          <span style={{ fontSize: '0.68rem', color: '#06402B', opacity: 0.4 }}>↗</span>
-        </div>
+{!isMobile && <span style={{ fontSize: '0.68rem', color: '#06402B', opacity: 0.4 }}>↗</span>}        </div>
       </div>
     ))}
   </div>

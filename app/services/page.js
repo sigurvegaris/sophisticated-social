@@ -40,7 +40,6 @@ const projects = [
     { name: 'Caudalie', image: '/images/caudalie.png' },
     { name: 'Camp Fleurish', image: '/images/campfleurish2.png' },
   ]},
-
 ]
 
 export default function Services() {
@@ -73,6 +72,21 @@ export default function Services() {
           This is where we are<br />
           <em style={{ fontStyle: 'italic', color: '#06402B' }}>different from the rest.</em>
         </h1>
+
+        {/* Mobile header image */}
+        {isMobile && (
+          <div style={{ width: '100%', height: '280px', overflow: 'hidden', borderRadius: '8px', marginTop: '32px' }}>
+            <img
+              src="/images/emmywithcamera.png"
+              alt="Emmy with camera"
+              style={{
+                width: '100%', height: '100%',
+                objectFit: 'cover', objectPosition: 'center 30%',
+                display: 'block'
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* ── ACCORDION + IMAGE ── */}
@@ -128,100 +142,96 @@ export default function Services() {
         </div>
 
         {!isMobile && (
-          <div style={{ position: 'relative', background: '#EDE8E0', minHeight: '600px', marginTop: '-400px', borderRadius: '16px', overflow: 'hidden' }}>
+          <div style={{ width: '100%', overflow: 'hidden', position: 'relative', minHeight: '600px' }}>
             <img
               src="/images/emmywithcamera.png"
-              alt="Emmy Rener"
+              alt="Emmy with camera"
               style={{
-                position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
-                objectFit: 'cover', objectPosition: 'center top',
-                display: 'block', borderRadius: '16px'
+                objectFit: 'cover', objectPosition: 'center 30%',
+                display: 'block', position: 'absolute', inset: 0
               }}
             />
           </div>
         )}
       </div>
 
-{/* ── PREVIOUS PROJECTS ── */}
-<div style={{ padding: isMobile ? '72px 28px' : '120px 80px', background: '#FFFFFF' }}>
-  <div style={{
-    display: 'flex', justifyContent: 'space-between',
-    alignItems: isMobile ? 'flex-start' : 'flex-end',
-    marginBottom: '80px', flexWrap: 'wrap', gap: '32px',
-    flexDirection: isMobile ? 'column' : 'row'
-  }}>
-    <div>
-      <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Selected Work</p>
-      <h2 style={{
-        fontFamily: 'Playfair Display, serif',
-        fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
-        fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
-        letterSpacing: '-0.02em'
-      }}>
-        Previous<br />
-        <em style={{ fontStyle: 'italic', color: '#06402B' }}>Projects.</em>
-      </h2>
-    </div>
-    <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, maxWidth: '380px', lineHeight: 1.9 }}>
-      A selection of brands and campaigns we have had the pleasure of working with.
-    </p>
-  </div>
-
-  {projects.map((cat) => (
-    <div key={cat.category} style={{ marginBottom: '80px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-        <span style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.6 }}>{cat.category}</span>
-        <div style={{ flex: 1, height: '1px', background: 'rgba(6,64,43,0.1)' }}></div>
-      </div>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr 1fr' : `repeat(${Math.min(cat.items.length, 4)}, 1fr)`,
-        gap: '0px',
-      }}>
-        {cat.items.map((item, i) => (
-          <div key={i} style={{
-            display: 'flex', flexDirection: 'column',
-            borderRight: !isMobile && i < cat.items.length - 1 ? '1px solid rgba(6,64,43,0.08)' : 'none',
-            padding: isMobile ? '0 8px 24px' : '0 32px 0',
-            transition: 'background 0.3s',
-            cursor: 'default'
-          }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(6,64,43,0.02)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-          >
-            <div style={{
-              width: '100%',
-              aspectRatio: '1/1',
-              overflow: 'hidden',
-              borderRadius: '4px',
-              marginBottom: '16px',
-              background: '#F7F3EE'
+      {/* ── PREVIOUS PROJECTS ── */}
+      <div style={{ padding: isMobile ? '72px 28px' : '120px 80px', background: '#FFFFFF' }}>
+        <div style={{
+          display: 'flex', justifyContent: 'space-between',
+          alignItems: isMobile ? 'flex-start' : 'flex-end',
+          marginBottom: '80px', flexWrap: 'wrap', gap: '32px',
+          flexDirection: isMobile ? 'column' : 'row'
+        }}>
+          <div>
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Selected Work</p>
+            <h2 style={{
+              fontFamily: 'Playfair Display, serif',
+              fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
+              fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
+              letterSpacing: '-0.02em'
             }}>
-              <img
-                src={item.image}
-                alt={item.name}
-                style={{
-                  width: '100%', height: '100%',
-                  objectFit: 'cover', objectPosition: 'center top',
-                  display: 'block',
-                  transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-              />
+              Previous<br />
+              <em style={{ fontStyle: 'italic', color: '#06402B' }}>Projects.</em>
+            </h2>
+          </div>
+          <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, maxWidth: '380px', lineHeight: 1.9 }}>
+            A selection of brands and campaigns we have had the pleasure of working with.
+          </p>
+        </div>
+
+        {projects.map((cat) => (
+          <div key={cat.category} style={{ marginBottom: '80px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
+              <span style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.6 }}>{cat.category}</span>
+              <div style={{ flex: 1, height: '1px', background: 'rgba(6,64,43,0.1)' }}></div>
             </div>
-            <p style={{
-              fontSize: '0.82rem', color: '#1C1C1C',
-              letterSpacing: '0.02em', fontWeight: 400,
-              lineHeight: 1.4, marginBottom: '6px'
-            }}>{item.name}</p>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr 1fr' : `repeat(${Math.min(cat.items.length, 4)}, 1fr)`,
+              gap: '0px',
+            }}>
+              {cat.items.map((item, i) => (
+                <div key={i} style={{
+                  display: 'flex', flexDirection: 'column',
+                  borderRight: !isMobile && i < cat.items.length - 1 ? '1px solid rgba(6,64,43,0.08)' : 'none',
+                  padding: isMobile ? '0 8px 24px' : '0 32px 0',
+                  transition: 'background 0.3s',
+                  cursor: 'default'
+                }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(6,64,43,0.02)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <div style={{
+                    width: '100%', aspectRatio: '1/1',
+                    overflow: 'hidden', borderRadius: '4px',
+                    marginBottom: '16px', background: '#F7F3EE'
+                  }}>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      style={{
+                        width: '100%', height: '100%',
+                        objectFit: 'cover', objectPosition: 'center top',
+                        display: 'block',
+                        transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                    />
+                  </div>
+                  <p style={{
+                    fontSize: '0.82rem', color: '#1C1C1C',
+                    letterSpacing: '0.02em', fontWeight: 400,
+                    lineHeight: 1.4, marginBottom: '6px'
+                  }}>{item.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-    </div>
-  ))}
-</div>
 
       {/* ── BOTTOM CTA ── */}
       <div style={{ padding: isMobile ? '24px 28px 60px' : '0px 80px 90px', background: '#FFFFFF', textAlign: 'center' }}>
