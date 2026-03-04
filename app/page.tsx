@@ -483,7 +483,6 @@ export default function Home() {
       height="700"
       frameBorder="0"
       scrolling="no"
-      allowtransparency="true"
       style={{ width: '100%', border: 'none', borderRadius: '12px' }}
     />
   </div>
