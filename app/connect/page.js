@@ -292,7 +292,7 @@ export default function Connect() {
             <p style={{ fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.7 }}>Contact Details</p>
 
             {[
-              { label: 'Email', value: 'emmy@sophisticatedspreads.net', href: 'mailto:emmy@sophisticatedspreads.net' },
+              { label: 'Email', value: 'emmy@sophisticatedsocial.net', href: 'mailto:emmy@sophisticatedsocial.net' },
               { label: 'Based In', value: 'Paris, France', href: null },
               { label: 'Working With', value: 'Brands Across the Globe', href: null },
             ].map((item) => (
@@ -311,8 +311,7 @@ export default function Connect() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {[
                   { label: 'Instagram — @emmyrener', href: 'https://www.instagram.com/emmyrener' },
-                  { label: 'TikTok — @emmyrener', href: 'https://www.tiktok.com/@emmyrener' },
-                  { label: 'Sophisticated Spreads ↗', href: 'https://sophisticatedspreads.net' },
+                  { label: 'TikTok — @sophisticatedspreads', href: 'https://www.tiktok.com/@sophisticatedspreads' },
                 ].map((link) => (
                   <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
                     fontFamily: 'Playfair Display, serif',

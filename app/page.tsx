@@ -401,8 +401,7 @@ export default function Home() {
             color: '#1C1C1C',
             fontWeight: 400,
             opacity: 0.6
-          }}>{item.label}</p>
-{!isMobile && <span style={{ fontSize: '0.68rem', color: '#06402B', opacity: 0.4 }}>↗</span>}        </div>
+          }}>{item.label}</p>        </div>
       </div>
     ))}
   </div>
