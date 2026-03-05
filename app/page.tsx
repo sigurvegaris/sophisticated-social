@@ -313,24 +313,29 @@ export default function Home() {
 
           {/* Logo row */}
           <div style={{
-            display: 'flex', flexWrap: 'wrap',
+            display: isMobile ? 'grid' : 'flex',
+            gridTemplateColumns: isMobile ? '1fr 1fr 1fr' : undefined,
+            flexWrap: 'wrap',
             justifyContent: 'center', alignItems: 'center',
-            gap: isMobile ? '24px 32px' : '16px 48px',
-            marginBottom: '40px'
+            gap: isMobile ? '20px' : '16px 48px',
+            marginBottom: '40px',
+            justifyItems: isMobile ? 'center' : undefined,
           }}>
             {[
               { name: 'Microsoft', logo: '/logos/microsoft.png' },
-              { name: 'Hard Rock Hotels', logo: '/logos/hardrock.png' },
+              { name: 'Hard Rock Hotels', logo: '/logos/hardrock.png', height: '72px' },
               { name: 'QuickBooks', logo: '/logos/quickbooks.png' },
               { name: 'Viator', logo: '/logos/viator.png' },
-              { name: 'le walk', logo: '/logos/lewalk.png' },
+              { name: 'le walk', logo: '/images/lewalk2.png' },
               { name: 'Caudalie', logo: '/logos/caudalie.png' },
-              { name: 'CapCut', logo: '/logos/capcut.png' },
+              { name: 'CapCut', logo: '/logos/capcut.png', fullRow: true },
             ].map((brand) => (
               <div key={brand.name} style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 opacity: 0.8,
                 transition: 'opacity 0.3s, filter 0.3s',
+                gridColumn: isMobile && brand.fullRow ? '1 / -1' : undefined,
+                justifySelf: isMobile && brand.fullRow ? 'center' : undefined,
               }}
               onMouseEnter={e => { e.currentTarget.style.opacity = '1' }}
               onMouseLeave={e => { e.currentTarget.style.opacity = '0.8' }}
@@ -338,7 +343,7 @@ export default function Home() {
                 <img
                   src={brand.logo}
                   alt={brand.name}
-                  style={{ height: isMobile ? '28px' : '36px', width: 'auto', objectFit: 'contain', maxWidth: '120px', mixBlendMode: brand.name === 'le walk' ? 'multiply' : 'normal', ...(brand.name === 'le walk' ? { filter: 'contrast(1.1)', background: 'transparent' } : {}) }}
+                  style={{ height: isMobile ? '52px' : (brand.height || '56px'), width: 'auto', objectFit: 'contain', maxWidth: isMobile ? '110px' : '160px', mixBlendMode: brand.name === 'le walk' ? 'multiply' : 'normal', ...(brand.name === 'le walk' ? { filter: 'contrast(1.1)', background: 'transparent' } : {}) }}
                 />
               </div>
             ))}
@@ -375,9 +380,10 @@ export default function Home() {
             alt={item.label}
             style={{
               width: '100%',
-              height: isMobile ? '280px' : '520px',
-              objectFit: 'cover',
+              height: isMobile ? '420px' : '520px',
+              objectFit: 'contain',
               objectPosition: 'center',
+              background: '#f7f3ee',
               display: 'block',
               transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
             }}
@@ -476,8 +482,8 @@ export default function Home() {
     maxWidth: '1100px'
   }}>
     {[
-      'https://www.instagram.com/p/DVOn_F4jEyZ/embed',
-      'https://www.instagram.com/p/DVOn_F4jEyZ/embed',
+      'https://www.instagram.com/p/DQNRcOokq20/embed',
+      'https://www.instagram.com/p/DPJvlBciaxi/embed',
       'https://www.instagram.com/p/DVOn_F4jEyZ/embed',
     ].map((src, i) => (
       <div key={i} style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}>
