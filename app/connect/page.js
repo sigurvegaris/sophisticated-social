@@ -9,7 +9,7 @@ import emailjs from '@emailjs/browser'
 //      {{from_name}}, {{from_email}}, {{brand}}, {{message}}
 // 4. Replace the three constants below with your real IDs
 // ─────────────────────────────────────────────
-const EMAILJS_SERVICE_ID  = 'service_tbxzhbc'
+const EMAILJS_SERVICE_ID  = 'service_k8jt27a'
 const EMAILJS_TEMPLATE_ID = 'template_topl4jq'
 const EMAILJS_PUBLIC_KEY  = 'CWiWuWYTSB04n1ev2'
 
@@ -85,30 +85,30 @@ export default function Connect() {
   }
 
   return (
-    <div style={{ background: '#FFFFFF' }}>
+    <div style={{ background: '#FFFFFF', overflowX: 'hidden' }}>
 
       {/* ── HEADER ── */}
       <div style={{
-        padding: isMobile ? '80px 28px 52px' : '120px 80px 80px',
+        padding: isMobile ? '80px 24px 48px' : '120px 80px 80px',
         background: '#FFFFFF',
         borderBottom: '1px solid rgba(6,64,43,0.08)',
         display: 'grid',
         gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-        gap: isMobile ? '28px' : '80px',
+        gap: isMobile ? '20px' : '80px',
         alignItems: 'end'
       }}>
         <div>
-          <p style={{ fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '28px', opacity: 0.7 }}>Get In Touch</p>
+          <p style={{ fontSize: '0.75rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Get In Touch</p>
           <h1 style={{
             fontFamily: 'Playfair Display, serif',
-            fontSize: isMobile ? '2.6rem' : 'clamp(2.8rem, 4vw, 4.5rem)',
-            fontWeight: 400, lineHeight: 1.1, color: '#1C1C1C'
+            fontSize: isMobile ? '2rem' : 'clamp(2.8rem, 4vw, 4.5rem)',
+            fontWeight: 400, lineHeight: 1.15, color: '#1C1C1C'
           }}>
             Let's build something<br />
             <em style={{ fontStyle: 'italic', color: '#06402B' }}>together.</em>
           </h1>
         </div>
-        <p style={{ fontSize: '1.05rem', lineHeight: 2, color: '#7A7A72', fontWeight: 300, alignSelf: 'end' }}>
+        <p style={{ fontSize: isMobile ? '0.9rem' : '1.05rem', lineHeight: 1.9, color: '#7A7A72', fontWeight: 300, alignSelf: 'end' }}>
           I love hearing from founder-led brands who are ready to take their social presence seriously. Tell me a little about yourself and what you are looking to build and I will be in touch.
         </p>
       </div>
@@ -122,7 +122,7 @@ export default function Connect() {
 
         {/* Form */}
         <div style={{
-          padding: isMobile ? '52px 28px' : '80px',
+          padding: isMobile ? '40px 24px' : '80px',
           borderRight: isMobile ? 'none' : '1px solid rgba(6,64,43,0.08)'
         }}>
           {submitted ? (
@@ -194,7 +194,7 @@ export default function Connect() {
               {/* Services */}
               <div>
                 <label style={{ ...labelStyle, marginBottom: '18px' }}>What services are you interested in?</label>
-                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '10px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
                   {[
                     'Content Creation',
                     'Social Media Management',
@@ -283,7 +283,7 @@ export default function Connect() {
 
         {/* Info Panel */}
         <div style={{
-          padding: isMobile ? '52px 28px' : '80px',
+          padding: isMobile ? '40px 24px' : '80px',
           background: '#F7F3EE',
           display: 'flex', flexDirection: 'column',
           justifyContent: 'space-between', gap: '48px'
