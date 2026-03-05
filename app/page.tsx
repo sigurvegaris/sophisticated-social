@@ -319,51 +319,28 @@ export default function Home() {
             marginBottom: '40px'
           }}>
             {[
-{ name: 'Microsoft', logo: '/logos/microsoft.png' },
-{ name: 'Hard Rock Hotels', logo: '/logos/hardrock.png' },
-{ name: 'QuickBooks', logo: '/logos/quickbooks.png' },
-{ name: 'Viator', logo: '/logos/viator.png' },
-{ name: "Jersey Mike's", logo: '/logos/jerseymikes.png' },
-{ name: 'Caudalie', logo: '/logos/caudalie.png' },
-{ name: 'CapCut', logo: '/logos/capcut.png' },
+              { name: 'Microsoft', logo: '/logos/microsoft.png' },
+              { name: 'Hard Rock Hotels', logo: '/logos/hardrock.png' },
+              { name: 'QuickBooks', logo: '/logos/quickbooks.png' },
+              { name: 'Viator', logo: '/logos/viator.png' },
+              { name: 'le walk', logo: '/logos/lewalk.png' },
+              { name: 'Caudalie', logo: '/logos/caudalie.png' },
+              { name: 'CapCut', logo: '/logos/capcut.png' },
             ].map((brand) => (
               <div key={brand.name} style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                filter: 'grayscale(100%)', opacity: 0.5,
+                opacity: 0.8,
                 transition: 'opacity 0.3s, filter 0.3s',
               }}
-                onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.filter = 'grayscale(0%)' }}
-                onMouseLeave={e => { e.currentTarget.style.opacity = '0.5'; e.currentTarget.style.filter = 'grayscale(100%)' }}
+              onMouseEnter={e => { e.currentTarget.style.opacity = '1' }}
+              onMouseLeave={e => { e.currentTarget.style.opacity = '0.8' }}
               >
                 <img
                   src={brand.logo}
                   alt={brand.name}
-                  style={{ height: isMobile ? '28px' : '36px', width: 'auto', objectFit: 'contain', maxWidth: '120px' }}
+                  style={{ height: isMobile ? '28px' : '36px', width: 'auto', objectFit: 'contain', maxWidth: '120px', mixBlendMode: brand.name === 'le walk' ? 'multiply' : 'normal', ...(brand.name === 'le walk' ? { filter: 'contrast(1.1)', background: 'transparent' } : {}) }}
                 />
               </div>
-            ))}
-          </div>
-
-          {/* Text brand list */}
-          <div style={{
-            display: 'flex', flexWrap: 'wrap',
-            justifyContent: 'center', alignItems: 'center',
-            gap: isMobile ? '12px 24px' : '8px 32px',
-            borderTop: '1px solid rgba(6,64,43,0.08)',
-            paddingTop: '32px'
-          }}>
-            {['Reynolds Wrap', 'Wine.com', 'Universal Yums',
-              'Volpi Foods', 'St Dalfour', "Bachan's", "Murray's Cheese",
-              'Love Beets', 'Kopiko', 'Wilde Chips', 'Magic Mind'].map((brand) => (
-              <span key={brand} style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: '0.85rem', color: '#1C1C1C',
-                letterSpacing: '0.04em', opacity: 0.45,
-                transition: 'opacity 0.3s', cursor: 'default'
-              }}
-                onMouseEnter={e => e.currentTarget.style.opacity = '0.8'}
-                onMouseLeave={e => e.currentTarget.style.opacity = '0.45'}
-              >{brand}</span>
             ))}
           </div>
         </div>
@@ -491,13 +468,71 @@ export default function Home() {
   display: 'flex', flexDirection: 'column', alignItems: 'center'
 }}>
   <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.7, marginBottom: '48px' }}>See It In Action</p>
-  <div style={{ width: '100%', maxWidth: '400px', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}>
-  <iframe
-  src="https://www.instagram.com/reel/DL2aeqVog2B/embed"
-  style={{ width: '100%', height: '700px', border: 'none', borderRadius: '12px', display: 'block' }}
-/>
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+    gap: '24px',
+    width: '100%',
+    maxWidth: '1100px'
+  }}>
+    {[
+      'https://www.instagram.com/p/DVOn_F4jEyZ/embed',
+      'https://www.instagram.com/p/DVOn_F4jEyZ/embed',
+      'https://www.instagram.com/p/DVOn_F4jEyZ/embed',
+    ].map((src, i) => (
+      <div key={i} style={{ borderRadius: '12px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.1)' }}>
+        <iframe
+          src={src}
+          style={{ width: '100%', height: '600px', border: 'none', display: 'block' }}
+        />
+      </div>
+    ))}
   </div>
 </div>
+
+      {/* ── TESTIMONIALS ── */}
+      <div
+        ref={el => { sectionsRef.current[2] = el }}
+        style={{ background: '#F7F3EE', padding: isMobile ? '72px 28px' : '100px 88px', ...fade(2) }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+          <div style={{ width: '32px', height: '1px', background: '#06402B' }}></div>
+          <p style={{ fontSize: '0.62rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: '#06402B' }}>Kind Words</p>
+        </div>
+        <h2 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: isMobile ? '2rem' : 'clamp(2rem, 3vw, 3rem)',
+          fontWeight: 400, marginBottom: '60px', lineHeight: 1.2, letterSpacing: '-0.02em', color: '#1C1C1C'
+        }}>People who have<br /><em style={{ fontStyle: 'italic', color: '#06402B' }}>trusted the work.</em></h2>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gap: isMobile ? '16px' : '2px',
+          alignItems: 'stretch'
+        }}>
+          {[
+            { quote: 'Emmy, you would have been successful on your own because your product and how hardworking you are. You are amazing!', name: 'Sofia Vergara', title: 'Actress' },
+            { quote: "Emmy has taste. She is also like lightening when she does social media; instantly filled with ideas that all make sense, skilled with the technicalities, responsive to the needs of the businesses she helps, absolutely willing to do the best thing. I'm so glad to have her on my team.", name: 'Susan', title: 'Author' },
+            { quote: 'Your testimonial here.', name: 'Name', title: 'Title' },
+          ].map((q, i) => (
+            <div key={i} style={{
+              background: '#FFFFFF', padding: isMobile ? '40px 32px' : '52px 44px',
+              borderBottom: '2px solid transparent', transition: 'border-color 0.3s',
+              display: 'flex', flexDirection: 'column', justifyContent: 'space-between'
+            }}
+              onMouseEnter={e => e.currentTarget.style.borderBottomColor = '#06402B'}
+              onMouseLeave={e => e.currentTarget.style.borderBottomColor = 'transparent'}
+            >
+              <p style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic', fontSize: '1.05rem', lineHeight: 1.85, color: '#1C1C1C', marginBottom: '32px', fontWeight: 400 }}>"{q.quote}"</p>
+              <div>
+                <p style={{ fontSize: '0.78rem', fontWeight: 500, color: '#06402B', letterSpacing: '0.05em' }}>{q.name}</p>
+                <p style={{ fontSize: '0.65rem', color: '#7A7A72', marginTop: '4px', letterSpacing: '0.05em' }}>{q.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* ── CTA ── */}
       <div

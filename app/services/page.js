@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const services = [
   {
@@ -30,17 +30,141 @@ const services = [
 ]
 
 const projects = [
-  { category: 'Food', items: [
-    { name: 'St Dalfour', image: '/images/dalfourpic.png' },
-    { name: 'Sophisticated Spreads', image: '/images/sophisticatedspreads1.png' },
-    { name: "Bachan's", image: '/images/japanesedip.png' },
-    { name: 'Social Media Takeover for the International Cheese Awards', image: '/images/emmyatief.png' },
+  // { category: 'Food', items: [
+  //   { name: 'Sophisticated Spreads', image: '/images/sophisticatedspreads1.png', horizontal: false },
+  //   { name: 'Social Media Takeover for the International Cheese Awards', image: '/images/emmyatief.png', horizontal: false },
+  // ]},
+  { category: 'Campaigns', items: [
+    { name: 'Aldi x Fiscalini Holiday Influencer Campaign', image: '/images/cheddarhorizontal.png', horizontal: true },
+    { name: "Chevoo x Effie's Biscuits Influencer Campaign", image: '/images/chevooxeffies.png', horizontal: true },
+    { name: 'Aldi x Fiscalini Influencer Campaign', image: '/images/aldixfiscalini2.png', horizontal: true },
   ]},
-  { category: 'Lifestyle', items: [
-    { name: 'Caudalie', image: '/images/caudalie.png' },
-    { name: 'Camp Fleurish', image: '/images/campfleurish2.png' },
-  ]},
+  // { category: 'Lifestyle', items: [
+  //   { name: 'Caudalie', image: '/images/caudalie.png', horizontal: false },
+  //   { name: 'Camp Fleurish', image: '/images/campfleurish2.png', horizontal: false },
+  // ]},
 ]
+
+
+// ── STACK SECTION COMPONENT ──
+function StackSection({ isMobile, items }) {
+  const total = items.length
+  const [topIndex, setTopIndex] = useState(0)
+  const [exiting, setExiting] = useState(false)
+  const timerRef = useRef(null)
+
+  // Tilt offsets per position in stack (top = 0, back = 2)
+  const tilts = [0, -3, 3]
+  const scales = [1, 0.97, 0.94]
+  const yOffsets = [0, 10, 20]
+
+  const advance = () => {
+    if (exiting) return
+    setExiting(true)
+    setTimeout(() => {
+      setTopIndex(prev => (prev + 1) % total)
+      setExiting(false)
+    }, 680)
+  }
+
+  useEffect(() => {
+    timerRef.current = setTimeout(function tick() {
+      advance()
+      timerRef.current = setTimeout(tick, 3200)
+    }, 3200)
+    return () => { if (timerRef.current) clearTimeout(timerRef.current) }
+  }, [])
+
+  // Build visible stack: top card first, then 2 behind
+  const stackOrder = [0, 1, 2].map(offset => items[(topIndex + offset) % total])
+
+  return (
+    <div style={{ padding: isMobile ? '72px 28px' : '100px 80px 120px', background: '#FFFFFF' }}>
+      {/* Header */}
+      <div style={{
+        display: 'flex', justifyContent: 'space-between',
+        alignItems: isMobile ? 'flex-start' : 'flex-end',
+        marginBottom: '60px', flexWrap: 'wrap', gap: '32px',
+        flexDirection: isMobile ? 'column' : 'row'
+      }}>
+        <div>
+          <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Selected Work</p>
+          <h2 style={{
+            fontFamily: 'Playfair Display, serif',
+            fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
+            fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
+            letterSpacing: '-0.02em'
+          }}>
+            Previous<br />
+            <em style={{ fontStyle: 'italic', color: '#06402B' }}>Projects.</em>
+          </h2>
+        </div>
+        <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, maxWidth: '380px', lineHeight: 1.9 }}>
+          A selection of brands and campaigns we have had the pleasure of working with.
+        </p>
+      </div>
+
+      {/* Stack */}
+      <div style={{ position: 'relative', width: '100%', aspectRatio: isMobile ? '16/9' : '21/9' }}>
+        {[...stackOrder].reverse().map((item, reversedI) => {
+          const i = 2 - reversedI // 0 = top card
+          const isTop = i === 0
+          return (
+            <div
+              key={item.name}
+              className={isTop && exiting ? 'stack-card-exiting' : isTop ? 'stack-card-promoting' : ''}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: isMobile ? '10px' : '16px',
+                overflow: 'hidden',
+                boxShadow: isTop
+                  ? '0 24px 64px rgba(6,64,43,0.18)'
+                  : `0 ${8 + i * 6}px ${24 + i * 12}px rgba(6,64,43,0.08)`,
+                transform: `rotate(${tilts[i]}deg) scale(${scales[i]}) translateY(${yOffsets[i]}px)`,
+                transformOrigin: 'center bottom',
+                zIndex: 3 - i,
+              }}
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', display: 'block', background: '#F7F3EE' }}
+              />
+              {/* Caption — only on top card */}
+              {isTop && (
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  padding: isMobile ? '28px 20px 18px' : '48px 36px 28px',
+                  background: 'linear-gradient(to top, rgba(6,20,14,0.75) 0%, transparent 100%)',
+                }}>
+                  <p style={{
+                    fontSize: isMobile ? '0.7rem' : '0.8rem',
+                    color: '#F7F3EE', letterSpacing: '0.08em',
+                    fontWeight: 300, textTransform: 'uppercase', lineHeight: 1.5,
+                  }}>{item.name}</p>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Dots */}
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '32px' }}>
+        {items.map((_, i) => (
+          <div key={i} style={{
+            width: i === topIndex ? '24px' : '6px',
+            height: '6px',
+            borderRadius: '3px',
+            background: i === topIndex ? '#06402B' : 'rgba(6,64,43,0.2)',
+            transition: 'all 0.4s ease',
+          }} />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Services() {
   const [open, setOpen] = useState(null)
@@ -156,82 +280,25 @@ export default function Services() {
         )}
       </div>
 
-      {/* ── PREVIOUS PROJECTS ── */}
-      <div style={{ padding: isMobile ? '72px 28px' : '120px 80px', background: '#FFFFFF' }}>
-        <div style={{
-          display: 'flex', justifyContent: 'space-between',
-          alignItems: isMobile ? 'flex-start' : 'flex-end',
-          marginBottom: '80px', flexWrap: 'wrap', gap: '32px',
-          flexDirection: isMobile ? 'column' : 'row'
-        }}>
-          <div>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', marginBottom: '20px', opacity: 0.7 }}>Selected Work</p>
-            <h2 style={{
-              fontFamily: 'Playfair Display, serif',
-              fontSize: isMobile ? '2rem' : 'clamp(2.2rem, 3.5vw, 3.5rem)',
-              fontWeight: 400, lineHeight: 1.2, color: '#1C1C1C',
-              letterSpacing: '-0.02em'
-            }}>
-              Previous<br />
-              <em style={{ fontStyle: 'italic', color: '#06402B' }}>Projects.</em>
-            </h2>
-          </div>
-          <p style={{ fontSize: '1rem', color: '#7A7A72', fontWeight: 300, maxWidth: '380px', lineHeight: 1.9 }}>
-            A selection of brands and campaigns we have had the pleasure of working with.
-          </p>
-        </div>
+      {/* ── PREVIOUS PROJECTS STACK ── */}
+      <style>{`
+        @keyframes slideAwayLeft {
+          0%   { transform: translateX(0) rotate(0deg) scale(1); opacity: 1; z-index: 10; }
+          100% { transform: translateX(-110%) rotate(-8deg) scale(0.92); opacity: 0; z-index: 10; }
+        }
+        @keyframes promoteUp {
+          0%   { transform: translateY(12px) scale(0.97); }
+          100% { transform: translateY(0px) scale(1); }
+        }
+        .stack-card-exiting {
+          animation: slideAwayLeft 0.7s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+        .stack-card-promoting {
+          animation: promoteUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+      `}</style>
 
-        {projects.map((cat) => (
-          <div key={cat.category} style={{ marginBottom: '80px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
-              <span style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#06402B', opacity: 0.6 }}>{cat.category}</span>
-              <div style={{ flex: 1, height: '1px', background: 'rgba(6,64,43,0.1)' }}></div>
-            </div>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr 1fr' : `repeat(${Math.min(cat.items.length, 4)}, 1fr)`,
-              gap: '0px',
-            }}>
-              {cat.items.map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex', flexDirection: 'column',
-                  borderRight: !isMobile && i < cat.items.length - 1 ? '1px solid rgba(6,64,43,0.08)' : 'none',
-                  padding: isMobile ? '0 8px 24px' : '0 32px 0',
-                  transition: 'background 0.3s',
-                  cursor: 'default'
-                }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(6,64,43,0.02)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-                >
-                  <div style={{
-                    width: '100%', aspectRatio: '1/1',
-                    overflow: 'hidden', borderRadius: '4px',
-                    marginBottom: '16px', background: '#F7F3EE'
-                  }}>
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      style={{
-                        width: '100%', height: '100%',
-                        objectFit: 'cover', objectPosition: 'center top',
-                        display: 'block',
-                        transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    />
-                  </div>
-                  <p style={{
-                    fontSize: '0.82rem', color: '#1C1C1C',
-                    letterSpacing: '0.02em', fontWeight: 400,
-                    lineHeight: 1.4, marginBottom: '6px'
-                  }}>{item.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <StackSection isMobile={isMobile} items={projects[0].items} />
 
       {/* ── BOTTOM CTA ── */}
       <div style={{ padding: isMobile ? '24px 28px 60px' : '0px 80px 90px', background: '#FFFFFF', textAlign: 'center' }}>

@@ -1,9 +1,36 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import emailjs from '@emailjs/browser'
+
+// ─────────────────────────────────────────────
+// 1. Go to https://www.emailjs.com and sign up
+// 2. Create a new Email Service (Gmail works great)
+// 3. Create an Email Template — use these variables:
+//      {{from_name}}, {{from_email}}, {{brand}}, {{message}}
+// 4. Replace the three constants below with your real IDs
+// ─────────────────────────────────────────────
+const EMAILJS_SERVICE_ID  = 'service_tbxzhbc'
+const EMAILJS_TEMPLATE_ID = 'template_topl4jq'
+const EMAILJS_PUBLIC_KEY  = 'CWiWuWYTSB04n1ev2'
 
 export default function Connect() {
-  const [formData, setFormData] = useState({ name: '', email: '', brand: '', message: '' })
+  const formRef = useRef(null)
+  const [formData, setFormData] = useState({
+    firstName: '', lastName: '', email: '', brand: '',
+    services: [], budget: '', message: ''
+  })
+
+  const toggleService = (service) => {
+    setFormData(prev => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter(s => s !== service)
+        : [...prev.services, service]
+    }))
+  }
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -13,9 +40,33 @@ export default function Connect() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name:  `${formData.firstName} ${formData.lastName}`,
+          from_email: formData.email,
+          brand:      formData.brand,
+          services:   formData.services.join(', '),
+          budget:     formData.budget || 'Not specified',
+          message:    formData.message,
+          reply_to:   formData.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+      setSubmitted(true)
+    } catch (err) {
+      console.error('EmailJS error:', err)
+      setError('Something went wrong. Please try again or email directly.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputStyle = {
@@ -90,25 +141,25 @@ export default function Connect() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
+            <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
+
+              {/* Name row */}
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '24px' }}>
                 <div>
-                <label style={labelStyle}>Your Name</label>
-                  <input
-                    type="text" required
-                    value={formData.name}
-                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                  <label style={labelStyle}>First Name</label>
+                  <input type="text" required
+                    value={formData.firstName}
+                    onChange={e => setFormData({ ...formData, firstName: e.target.value })}
                     style={inputStyle}
                     onFocus={e => e.target.style.borderBottomColor = '#06402B'}
                     onBlur={e => e.target.style.borderBottomColor = 'rgba(6,64,43,0.2)'}
                   />
                 </div>
                 <div>
-                <label style={labelStyle}>Email Address</label>
-                  <input
-                    type="email" required
-                    value={formData.email}
-                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                  <label style={labelStyle}>Last Name</label>
+                  <input type="text" required
+                    value={formData.lastName}
+                    onChange={e => setFormData({ ...formData, lastName: e.target.value })}
                     style={inputStyle}
                     onFocus={e => e.target.style.borderBottomColor = '#06402B'}
                     onBlur={e => e.target.style.borderBottomColor = 'rgba(6,64,43,0.2)'}
@@ -116,10 +167,22 @@ export default function Connect() {
                 </div>
               </div>
 
+              {/* Email */}
               <div>
-              <label style={labelStyle}>Your Brand or Business</label>
-                <input
-                  type="text"
+                <label style={labelStyle}>Email Address</label>
+                <input type="email" required
+                  value={formData.email}
+                  onChange={e => setFormData({ ...formData, email: e.target.value })}
+                  style={inputStyle}
+                  onFocus={e => e.target.style.borderBottomColor = '#06402B'}
+                  onBlur={e => e.target.style.borderBottomColor = 'rgba(6,64,43,0.2)'}
+                />
+              </div>
+
+              {/* Brand */}
+              <div>
+                <label style={labelStyle}>Your Brand or Business</label>
+                <input type="text"
                   value={formData.brand}
                   onChange={e => setFormData({ ...formData, brand: e.target.value })}
                   style={inputStyle}
@@ -128,10 +191,61 @@ export default function Connect() {
                 />
               </div>
 
+              {/* Services */}
               <div>
-              <label style={labelStyle}>Tell Me About Your Project</label>
-                <textarea
-                  required rows={5}
+                <label style={{ ...labelStyle, marginBottom: '18px' }}>What services are you interested in?</label>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '10px' }}>
+                  {[
+                    'Content Creation',
+                    'Social Media Management',
+                    'Website Development',
+                    'Influencer Marketing',
+                    'The Full Social Makeover',
+                  ].map(service => {
+                    const selected = formData.services.includes(service)
+                    return (
+                      <button
+                        key={service}
+                        type="button"
+                        onClick={() => toggleService(service)}
+                        style={{
+                          padding: '14px 20px',
+                          background: selected ? '#06402B' : 'transparent',
+                          color: selected ? '#F7F3EE' : '#06402B',
+                          border: '1px solid rgba(6,64,43,0.3)',
+                          fontSize: '0.75rem', letterSpacing: '0.08em',
+                          textAlign: 'left', cursor: 'pointer',
+                          fontFamily: 'DM Sans, sans-serif',
+                          transition: 'all 0.2s',
+                          borderRadius: '2px'
+                        }}
+                      >{service}</button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Budget */}
+              <div>
+                <label style={labelStyle}>What is your budget?</label>
+                <select
+                  value={formData.budget}
+                  onChange={e => setFormData({ ...formData, budget: e.target.value })}
+                  style={{ ...inputStyle, cursor: 'pointer' }}
+                >
+                  <option value="">Select a range</option>
+                  <option value="Under $1,000">Under $1,000</option>
+                  <option value="$1,000 – $3,000">$1,000 – $3,000</option>
+                  <option value="$3,000 – $5,000">$3,000 – $5,000</option>
+                  <option value="$5,000+">$5,000+</option>
+                  <option value="Let's discuss">Let's discuss</option>
+                </select>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label style={labelStyle}>Tell us about your business and social media goals</label>
+                <textarea required rows={5}
                   value={formData.message}
                   onChange={e => setFormData({ ...formData, message: e.target.value })}
                   style={{ ...inputStyle, resize: 'none' }}
@@ -140,20 +254,29 @@ export default function Connect() {
                 />
               </div>
 
+              {error && (
+                <p style={{ fontSize: '0.85rem', color: '#c0392b', fontWeight: 300 }}>{error}</p>
+              )}
+
               <button
                 type="submit"
+                disabled={loading}
                 style={{
                   padding: '18px 52px',
-                  background: '#06402B', color: '#F7F3EE',
+                  background: loading ? 'rgba(6,64,43,0.5)' : '#06402B',
+                  color: '#F7F3EE',
                   border: '1px solid #06402B',
                   fontSize: '0.75rem', letterSpacing: '0.15em',
                   textTransform: 'uppercase', fontWeight: 400,
-                  cursor: 'pointer', width: 'fit-content',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  width: 'fit-content',
                   fontFamily: 'DM Sans, sans-serif', transition: 'all 0.3s'
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#06402B' }}
-                onMouseLeave={e => { e.currentTarget.style.background = '#06402B'; e.currentTarget.style.color = '#F7F3EE' }}
-              >Send Message</button>
+                onMouseEnter={e => { if (!loading) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#06402B' }}}
+                onMouseLeave={e => { if (!loading) { e.currentTarget.style.background = '#06402B'; e.currentTarget.style.color = '#F7F3EE' }}}
+              >
+                {loading ? 'Sending...' : 'Send Message'}
+              </button>
             </form>
           )}
         </div>

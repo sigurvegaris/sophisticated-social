@@ -158,7 +158,7 @@ padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDi
 
      
 
-      {/* ── CELEBRITY CLIENTS ── */}
+      {/* ── CELEBRITY CLIENTS ──
       <div style={{ background: '#F7F3EE', padding: isMobile ? '72px 28px' : '100px 70px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
           <div style={{ width: '32px', height: '1px', background: '#06402B' }}></div>
@@ -177,8 +177,8 @@ padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDi
         }}>
           {[
             { quote: 'Emmy, you would have been successful on your own because your product and how hardworking you are. You are amazing!', name: 'Sofia Vergara', title: 'Actress' },
-            { quote: 'Sophisticated Spreads are the easiest way to elevate an occasion and make your guests feel like they need to step up their own game.', name: 'Jesse Tyler Ferguson', title: 'Actor, Modern Family' },
-            { quote: 'Whenever I have a special occasion I am hosting, my first call is to Sophisticated Spreads. Highly recommend.', name: 'Allison Janney', title: 'Actress, The West Wing' },
+            { quote: "Emmy has taste. She is also like lightening when she does social media; instantly filled with ideas that all make sense, skilled with the technicalities, responsive to the needs of the businesses she helps, absolutely willing to do the best thing. I'm so glad to have her on my team.", name: 'Susan', title: 'Author' },
+            // { quote: 'Whenever I have a special occasion I am hosting, my first call is to Sophisticated Spreads. Highly recommend.', name: 'Allison Janney', title: 'Actress, The West Wing' },
           ].map((q, i) => (
             <div key={i} style={{
               background: '#FFFFFF', padding: isMobile ? '40px 32px' : '52px 44px',
@@ -193,7 +193,7 @@ padding: isMobile ? '80px 28px 40px' : '100px 60px 60px',display: 'flex', flexDi
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       
 
