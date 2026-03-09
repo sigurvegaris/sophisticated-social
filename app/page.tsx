@@ -519,7 +519,7 @@ export default function Home() {
           {[
             { quote: 'Emmy, you would have been successful on your own because your product and how hardworking you are. You are amazing!', name: 'Sofia Vergara', title: 'Actress' },
             { quote: "Emmy has taste. She is also like lightening when she does social media; instantly filled with ideas that all make sense, skilled with the technicalities, responsive to the needs of the businesses she helps, absolutely willing to do the best thing. I'm so glad to have her on my team.", name: 'Susan', title: 'Author' },
-            { quote: 'Your testimonial here.', name: 'Name', title: 'Title' },
+            { quote: "I've had the pleasure of partnering with Emmy on several influencer campaigns for CHEVOO, our marinated goat cheese brand. Emmy's industry expertise means she understands our needs from the get-go, while her drive and connections consistently deliver excellent results. What I truly appreciate is that Emmy manages every detail from start to finish — while always keeping me in the loop. I couldn't ask for a better partner!", name: 'Susan Wheaton Guérin', title: 'Marketing & PR Director, Belle Chevre Inc.' },
           ].map((q, i) => (
             <div key={i} style={{
               background: '#FFFFFF', padding: isMobile ? '40px 32px' : '52px 44px',
